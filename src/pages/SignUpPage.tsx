@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function SignUpPage() {
@@ -8,6 +8,8 @@ export default function SignUpPage() {
     watch,
     formState: { errors },
   } = useForm();
+  const [loading, setLoading] = useState(false);
+
   return (
     <div>
       <form className="flex flex-col justify-center items-center gap-8 py-12">
@@ -50,6 +52,8 @@ export default function SignUpPage() {
               <p className="text-red-500">{errors.email?.message}</p>
             )}
           </label>
+
+
         </div>
       </form>
     </div>
