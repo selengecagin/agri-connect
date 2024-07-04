@@ -9,7 +9,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
     </BrowserRouter>
   </React.StrictMode>
 );
