@@ -10,8 +10,8 @@ export default function SignUpPage() {
   } = useForm();
   return (
     <div>
-      <form>
-        <div>
+      <form className="flex flex-col justify-center items-center gap-8 py-12">
+        <div className="flex flex-col gap-6">
           <label htmlFor="name" className="w-[450px]">
             <p className="pb-2 text-lg font-normal text-darkTextColor">Name</p>
             <input
