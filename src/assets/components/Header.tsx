@@ -6,6 +6,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   return (
+    //UI will be updated
     <header className="flex">
       <nav className="flex flex-row justify-between px-[5%] h-14 bg-slate-300 items-center w-full">
         <div className="text-xl">
