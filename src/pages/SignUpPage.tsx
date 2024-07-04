@@ -27,7 +27,27 @@ export default function SignUpPage() {
               })}
             ></input>
             {typeof errors.name?.message === "string" && (
-              <p className="text-red-500">{errors.name.message}</p>
+              <p className="text-red-500">{errors.name?.message}</p>
+            )}
+          </label>
+
+          <label htmlFor="email" className="w-[450px]">
+            <p className="pb-2 text-lg font-normal text-darkTextColor">Email</p>
+            <input
+              type="text"
+              placeholder="example@domain.com"
+              className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm"
+              {...register("email", {
+                required: "Please enter your email address.",
+                pattern: {
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                  message:
+                    "Looks like this isn’t a valid email format. Please check and try again.",
+                },
+              })}
+            ></input>
+            {typeof errors.email?.message === "string" && (
+              <p className="text-red-500">{errors.email?.message}</p>
             )}
           </label>
         </div>
