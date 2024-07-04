@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <header className="flex">
-      <nav className="flex h-[400px] items-center sm:gap-6 sm:flex sm:flex-row sm:justify-between sm:items-center sm:h-auto px-[10%] py-2.5 bg-white ">
+      <nav className="flex flex-col h-[400px] items-center sm:gap-6 sm:flex sm:flex-row sm:justify-between sm:items-center sm:h-auto px-[10%] py-2.5 bg-white ">
         <div className="gap-40 pb-8 sm:flex sm:pb-0">
           <Link to="/" className="">
             AgriConnect
