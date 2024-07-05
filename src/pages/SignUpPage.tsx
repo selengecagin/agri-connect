@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
+
+type FormValues = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
 export default function SignUpPage() {
   const {
     register,
@@ -9,6 +17,8 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
+
+
 
   return (
     <div>
