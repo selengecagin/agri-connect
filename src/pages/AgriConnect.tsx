@@ -21,7 +21,14 @@ export default function AgriConnect() {
 
         <div className="side-container flex flex-col w-1/3 mx">
           <div className="flex flex-col">Tags</div>
-          <div className="flex flex-col">Network QAs</div>
+          <div className="flex flex-col">
+            <h4>Network Questions</h4>
+            <div>
+                
+            </div>
+
+
+          </div>
         </div>
       </div>
     </div>
