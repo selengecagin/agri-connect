@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-
 type FormValues = {
   name: string;
   email: string;
@@ -18,15 +17,12 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
- const navigate = useNavigate();
- 
+  const navigate = useNavigate();
 
-
- const onSubmit: SubmitHandler<FormValues> = (data) => {
-   // Handle form submission
-   console.log(data);
- };
-
+  const onSubmit = () => {
+    // Handle form submission
+    console.log();
+  };
 
   return (
     <div>
