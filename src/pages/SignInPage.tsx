@@ -8,12 +8,12 @@ export default function SignInPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="">
-      <form className="">
+      <form className="flex flex-col justify-center items-center gap-8 py-12">
         <label htmlFor="email" className="w-[450px]">
           <p className="pb-2 text-lg font-normal text-darkTextColor">Email</p>
           <input
@@ -45,6 +45,9 @@ export default function SignInPage() {
             <p className="text-red-500">{errors.password?.message}</p>
           )}
         </label>
+
+        
+
       </form>
     </div>
   );
