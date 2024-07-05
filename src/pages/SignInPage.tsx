@@ -28,6 +28,23 @@ export default function SignInPage() {
             <p className="text-red-500">{errors.email?.message}</p>
           )}
         </label>
+
+        <label htmlFor="password" className="passwordArea w-[450px]">
+          <p className="pb-2 text-lg font-normal text-darkTextColor">
+            Password
+          </p>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm"
+            {...register("password", {
+              required: "Please enter password.",
+            })}
+          ></input>
+          {typeof errors.password?.message === "string" && (
+            <p className="text-red-500">{errors.password?.message}</p>
+          )}
+        </label>
       </form>
     </div>
   );
