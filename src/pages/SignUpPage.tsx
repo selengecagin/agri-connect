@@ -27,7 +27,7 @@ export default function SignUpPage() {
   return (
     <div>
       <form
-        className="flex flex-col justify-center items-center gap-8 py-12"
+        className="flex flex-col justify-center items-center gap-8 py-12 bg-lightGray1" 
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col items-center gap-6">
