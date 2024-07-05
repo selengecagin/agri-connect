@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 
 type FormValues = {
@@ -17,12 +18,22 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
+ const navigate = useNavigate();
+ 
 
+
+ const onSubmit: SubmitHandler<FormValues> = (data) => {
+   // Handle form submission
+   console.log(data);
+ };
 
 
   return (
     <div>
-      <form className="flex flex-col justify-center items-center gap-8 py-12">
+      <form
+        className="flex flex-col justify-center items-center gap-8 py-12"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="flex flex-col items-center gap-6">
           <label htmlFor="name" className="w-[450px]">
             <p className="pb-2 text-lg font-normal text-darkTextColor">Name</p>
@@ -107,7 +118,6 @@ export default function SignUpPage() {
             {typeof errors.confirmPassword?.message === "string" && (
               <p className="text-red-500">{errors.confirmPassword?.message}</p>
             )}
-        
           </label>
 
           <div className="registerButtonArea">
