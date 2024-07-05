@@ -46,8 +46,17 @@ export default function SignInPage() {
           )}
         </label>
 
-        
-
+        <button
+          className={`rounded-md items-center px-16 py-4 text-base font-bold text-white  bg-blue-700  ${
+            loading
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:animate-wiggle-more hover:animate-twice"
+          }`}
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Loading..." : "Sign In"}
+        </button>
       </form>
     </div>
   );
