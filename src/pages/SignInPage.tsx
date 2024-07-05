@@ -11,9 +11,17 @@ export default function SignInPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const onSubmit = () => {
+    // Handle form submission
+    console.log();
+  };
+
   return (
     <div className="bg-lightGray1">
-      <form className="flex flex-col justify-center items-center gap-8 py-12">
+      <form
+        className="flex flex-col justify-center items-center gap-8 py-12"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <label htmlFor="email" className="w-[450px]">
           <p className="pb-2 text-lg font-normal text-darkTextColor">Email</p>
           <input
