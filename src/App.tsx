@@ -3,6 +3,7 @@ import "./App.css";
 import Footer from "./assets/components/Footer";
 import Header from "./assets/components/Header";
 import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         {/* <Route path="/bazaar" element={<Bazaar />}></Route> */}
 
         <Route path="/signup" element={<SignUpPage />}></Route>
+        <Route path="/signin" element={<SignInPage />}></Route>
         <Route path="*" element={<h1>404 Not Found Page</h1>} />
       </Routes>
 
