@@ -24,7 +24,9 @@ export default function SignInPage() {
               required: "Please enter email address.",
             })}
           ></input>
-          <p className="text-red-500">{errors.email?.message}</p>
+          {typeof errors.email?.message === "string" && (
+            <p className="text-red-500">{errors.email?.message}</p>
+          )}
         </label>
       </form>
     </div>
