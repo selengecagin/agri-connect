@@ -76,8 +76,29 @@ export default function SignUpPage() {
             )}
           </label>
 
-
-          
+          <label
+            htmlFor="confirmPassword"
+            className="confirmPasswordArea w-[450px]"
+          >
+            <p className="pb-2 text-lg font-normal text-darkTextColor">
+              Confirm Password
+            </p>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm"
+              {...register("confirmPassword", {
+                required: "Please confirm your password.",
+                validate: (value) =>
+                  value === watch("password") ||
+                  "Passwords do not match. Try again.",
+              })}
+            ></input>
+            {typeof errors.confirmPassword?.message === "string" && (
+              <p className="text-red-500">{errors.confirmPassword?.message}</p>
+            )}
+        
+          </label>
 
           <div className="registerButtonArea">
             <button
