@@ -1,38 +1,51 @@
 import { Link } from "react-router-dom";
 
 import "../../index.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   return (
     <header className="flex">
-      <nav className="flex flex-row h-[400px] items-center px-[10%] py-2.5 bg-slate-800">
-        <div className="gap-40 pb-8 ">
-          <Link to="/" className="">
+      <nav className="flex flex-row justify-between px-[5%] h-14 bg-white items-center w-full">
+        <div className="text-xl">
+          <Link to="/" className="text-[#1d4ed8] text-2xl font-bold">
             AgriConnect
           </Link>
         </div>
 
-        <div className="flex flex-col  gap-4">
-          <Link to={"/"} className="text-secondTextColor text-xl font-normal">
+        <div className="flex flex-row  gap-4">
+          <Link
+            to={"/agri-connect"}
+            className="text-[#737373] text-sm font-bold"
+          >
             AgriConnect
           </Link>
 
           <Link
             to={"/harvest-over-crop"}
-            className="text-secondTextColor text-xl font-normal"
+            className="text-[#737373] text-sm font-bold"
           >
             HarvestOverCrop
           </Link>
 
-          <Link
-            to={"/bazaar"}
-            className="text-secondTextColor text-xl font-normal"
-          >
+          <Link to={"/bazaar"} className="text-[#737373] text-sm font-bold">
             Bazaar
           </Link>
         </div>
 
-        <div></div>
+        <div className="flex gap-2 text-blue-700 ">
+          <Link to="/profile">
+            <FontAwesomeIcon icon={faUser} style={{ color: "#1d4ed8" }} />
+          </Link>
+          <Link to="/signin" className="text-blue-700">
+            Login
+          </Link>
+          <p className="text-blue-700">|</p>
+          <Link to="/signup" className="text-blue-700">
+            Register
+          </Link>
+        </div>
       </nav>
     </header>
   );
