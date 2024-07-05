@@ -12,7 +12,7 @@ export default function SignInPage() {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="">
+    <div className="bg-lightGray1">
       <form className="flex flex-col justify-center items-center gap-8 py-12">
         <label htmlFor="email" className="w-[450px]">
           <p className="pb-2 text-lg font-normal text-darkTextColor">Email</p>
