@@ -16,26 +16,26 @@ export default function SocialMediaComponent() {
       },
       { icon: faTwitter, url: "https://twitter.com", label: "Twitter" },
     ];
-  return (
-    <div >
-      {socialMediaLinks.map((link, index) => {
-        return (
-          <a
-            href={link.url}
-            key={index}
-            target="_blank"
-            aria-label={`Follow us on ${link.label}`}
-            rel="noopener noreferrer"
-            className="text-lightTextColor hover:scale-110 transition duration-200"
-          >
-            <FontAwesomeIcon
-              icon={link.icon}
-              size="xl"
-              style={{ color: "#23A6F0" }}
-            />
-          </a>
-        );
-      })}
-    </div>
-  );
+    return (
+      <>
+        {socialMediaLinks.map((link, index) => {
+          return (
+            <a
+              href={link.url}
+              key={index}
+              target="_blank"
+              aria-label={`Follow us on ${link.label}`}
+              rel="noopener noreferrer"
+              className="text-lightTextColor hover:scale-110 transition duration-200"
+            >
+              <FontAwesomeIcon
+                icon={link.icon}
+                size="xl"
+                style={{ color: "#23A6F0" }}
+              />
+            </a>
+          );
+        })}
+      </>
+    );
 }
