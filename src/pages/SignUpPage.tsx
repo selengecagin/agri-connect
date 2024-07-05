@@ -53,6 +53,32 @@ export default function SignUpPage() {
             )}
           </label>
 
+          <label htmlFor="password" className="passwordArea w-[450px]">
+            <p className="pb-2 text-lg font-normal text-darkTextColor">
+              Password
+            </p>
+            <input
+              type="password"
+              placeholder="Create a Password"
+              className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm"
+              {...register("password", {
+                required: "Please create a password.",
+                pattern: {
+                  value:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  message:
+                    "Your password should be at least 8 characters long and include uppercase letters, lowercase letters, numbers, and special characters (e.g., @, #, $).",
+                },
+              })}
+            ></input>
+            {typeof errors.password?.message === "string" && (
+              <p className="text-red-500">{errors.password?.message}</p>
+            )}
+          </label>
+
+
+          
+
           <div className="registerButtonArea">
             <button
               className={`rounded-md items-center px-16 py-4 text-base font-bold text-white bg-blue-700 ${
