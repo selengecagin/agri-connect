@@ -8,29 +8,29 @@ export default function Header() {
   return (
     //UI will be updated
     <header className="flex">
-      <nav className="flex flex-row justify-between px-[5%] h-14 bg-slate-300 items-center w-full">
+      <nav className="flex flex-row justify-between px-[5%] h-14 bg-white items-center w-full">
         <div className="text-xl">
-          <Link to="/" className="">
+          <Link to="/" className="text-[#252B42] text-2xl font-bold">
             AgriConnect
           </Link>
         </div>
 
         <div className="flex flex-row  gap-4">
-          <Link to={"/"} className="text-secondTextColor text-lg font-normal">
+          <Link
+            to={"/agri-connect"}
+            className="text-[#737373] text-sm font-bold"
+          >
             AgriConnect
           </Link>
 
           <Link
             to={"/harvest-over-crop"}
-            className="text-secondTextColor text-lg font-normal"
+            className="text-[#737373] text-sm font-bold"
           >
             HarvestOverCrop
           </Link>
 
-          <Link
-            to={"/bazaar"}
-            className="text-secondTextColor text-lg font-normal"
-          >
+          <Link to={"/bazaar"} className="text-[#737373] text-sm font-bold">
             Bazaar
           </Link>
         </div>
