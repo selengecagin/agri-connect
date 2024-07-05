@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import React, { useEffect, useState } from "react";
 
 export default function ForumCard() {
@@ -28,9 +28,9 @@ const [creationTime, setCreationTime] = useState<Date | null>(null);
         </div>
         <div className="flex flex-row justify-between">
           <p>Tags</p>
-          
+
           {creationTime && (
-            <p>{format(creationTime, "yyyy-MM-dd HH:mm:ss")}</p>
+            <p className="text-sm">{formatDistanceToNow(creationTime, { addSuffix: true })}</p>
           )}
         </div>
       </div>
