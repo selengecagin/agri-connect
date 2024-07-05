@@ -29,6 +29,16 @@ export default function SignInPage() {
           )}
         </label>
 
+        {/* TODO implement remember me feature */}
+        {/* <label htmlFor="rememberMe">
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={handleRememberMe}
+          />
+          Remember Me
+        </label> */}
+
         <label htmlFor="password" className="passwordArea w-[450px]">
           <p className="pb-2 text-lg font-normal text-darkTextColor">
             Password
