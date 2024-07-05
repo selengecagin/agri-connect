@@ -17,7 +17,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="bg-lightGray1">
+    <div className="bg-[#fafafa]">
       <form
         className="flex flex-col justify-center items-center gap-8 py-12"
         onSubmit={handleSubmit(onSubmit)}
