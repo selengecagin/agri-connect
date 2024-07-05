@@ -6,11 +6,10 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   return (
-    //UI will be updated
     <header className="flex">
       <nav className="flex flex-row justify-between px-[5%] h-14 bg-white items-center w-full">
         <div className="text-xl">
-          <Link to="/" className="text-[#252B42] text-2xl font-bold">
+          <Link to="/" className="text-[#1d4ed8] text-2xl font-bold">
             AgriConnect
           </Link>
         </div>
@@ -35,15 +34,15 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex gap-2 text-primaryColor ">
+        <div className="flex gap-2 text-blue-700 ">
           <Link to="/profile">
-            <FontAwesomeIcon icon={faUser} style={{ color: "primaryColor" }} />
+            <FontAwesomeIcon icon={faUser} style={{ color: "#1d4ed8" }} />
           </Link>
-          <Link to="/signin" className="text-primaryColor">
+          <Link to="/signin" className="text-blue-700">
             Login
           </Link>
-          <p className="text-primaryColor">/</p>
-          <Link to="/signup" className="text-primaryColor">
+          <p className="text-blue-700">|</p>
+          <Link to="/signup" className="text-blue-700">
             Register
           </Link>
         </div>
