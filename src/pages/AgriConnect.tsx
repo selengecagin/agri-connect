@@ -1,5 +1,7 @@
 import React from "react";
 import ForumCard from "../assets/components/ForumCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHashtag } from "@fortawesome/free-solid-svg-icons";
 
 export default function AgriConnect() {
   return (
@@ -72,9 +74,34 @@ export default function AgriConnect() {
           </div>
 
           <div className="qa-container flex flex-col">
-            <h4>
-              <a href="#">Network Questions </a>
-            </h4>
+            <div className="mb-4">
+              <h4>
+                <a href="#">Network Questions </a>
+              </h4>
+            </div>
+
+            <div className="network-qa-container flex flex-col">
+              <ul>
+                <li className="flex flex-row gap-1">
+                  <div>
+                    <FontAwesomeIcon
+                      icon={faHashtag}
+                      style={{ color: "blue-900" }}
+                      size="xs"
+                    />
+                  </div>
+                  <a
+                    className="text-blue-500 hover:text-blue-900 text-sm mt-0.5"
+                    href="#"
+                  >
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris.
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
