@@ -48,22 +48,23 @@ export default function Footer() {
             );
           })}
 
-          <div className="flex flex-col items-start gap-5 ">
-            <h5 className="text-[#252b42] font-bold ">Get In Touch</h5>
-
-            <div className="flex items-center">
+          <div className="flex flex-col items-start">
+            <div className="mb-5">
+              <h5 className="text-[#252b42] font-bold">Get In Touch</h5>
+            </div>
+            <div className="flex items-center mb-1">
               <input
                 type="email"
                 placeholder="Your Email"
-                className="px-[12px] h-[57px] rounded-l-md border border-solid border-[#e6e6e6] bg-[#f9f9f9]"
+                className="px-4 py-4  rounded-l-md border border-solid border-[#e6e6e6] bg-[#f9f9f9]"
               />
-              <button className="bg-blue-700 text-white px-6 py-4 rounded-r-md items-center shrink-0 border border-solid border-[#e6e6e6]">
+              <button className="bg-blue-700 text-white px-6 py-4 rounded-r-md items-center shrink-0 border border-solid border-blue-700">
                 Subscribe
               </button>
             </div>
 
-            <p className="text-[#737373] text-xs font-normal mt-2">
-              Lore impsum dolor Amit
+            <p className="text-[#737373] text-xs font-normal">
+              Subscribe to our newsletter
             </p>
           </div>
         </div>
