@@ -53,7 +53,6 @@ export default function AgriConnect() {
 
             <h4>Network Questions</h4>
 
-            <div></div>
           </div>
         </div>
       </div>

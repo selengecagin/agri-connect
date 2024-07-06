@@ -4,16 +4,16 @@ import React, { useEffect, useState } from "react";
 export default function ForumCard() {
 
   return (
-    <div className="flex flex-row border border-solid">
-      <div className="flex flex-col justify-start px-4 py-2 gap-1 w-[150px] items-end text-sm">
+    <div className="flex flex-row border border-solid py-4">
+      <div className="flex flex-col justify-start px-4 py-3 gap-1 w-[150px] items-end text-sm">
         <p>2 votes</p>
         <p>1 answers</p>
         <p>7 views</p>
       </div>
 
       <div className="flex flex-col w-full px-4 py-2 justify-center gap-3 ">
-        <div className="flex- flex-col">
-          <p className="text-lg text-blue-700">Question Title</p>
+        <div className="flex- flex-col ">
+          <a className="text-lg text-blue-700" href="#">Question Title</a>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -23,8 +23,9 @@ export default function ForumCard() {
             veniam, quis nostrud exercitation ullamco laboris.
           </p>
         </div>
-        <div className="flex flex-row justify-end">
-          <p className="text-sm"> less than 1 minute ago</p>
+        <div className="flex flex-row justify-end gap-2 text-sm">
+            <a href="#" className="text-blue-600">@username</a>
+          <p> less than 1 minute ago</p>
         </div>
       </div>
     </div>
