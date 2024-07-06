@@ -1,6 +1,7 @@
 import React from "react";
 import SocialMediaComponent from "./SocialMediaComponent";
 import { Link } from "react-router-dom";
+import AgriConnect from '../../pages/AgriConnect';
 
 const footerData = [
   {
@@ -71,8 +72,8 @@ export default function Footer() {
       </section>
 
       <section className="footer-3 bg-[#fafafa] px-[44px] sm:px-32 md:px-48 py-6 flex items-center justify-center sm:justify-start md:w-full">
-        <p className="text-[#737373] text-sm font-bold w-[210px] sm:w-[400px] text-center sm:text-start">
-          Made With Love by AgriConnect Team All Rights Reserved
+        <p className="text-[#737373] text-sm w-[210px] sm:w-[400px] text-center sm:text-start">
+          &copy; 2024 AgriConnect. All rights reserved.
         </p>
       </section>
     </footer>

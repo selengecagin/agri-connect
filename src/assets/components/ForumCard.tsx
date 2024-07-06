@@ -16,7 +16,7 @@ export default function ForumCard() {
           <a className="text-lg text-blue-700 hover:text-blue-900" href="#">
             Question Title
           </a>
-          <p className="">
+          <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem
