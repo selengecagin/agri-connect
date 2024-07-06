@@ -9,7 +9,10 @@ export default function Header() {
     <header className="flex">
       <nav className="flex flex-row justify-between px-[5%] h-14 bg-white items-center w-full">
         <div className="text-xl">
-          <Link to="/" className="text-[#1d4ed8] text-2xl font-bold">
+          <Link
+            to="/"
+            className="text-blue-700 hover:text-blue-900 text-2xl font-bold"
+          >
             AgriConnect
           </Link>
         </div>
@@ -34,15 +37,15 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex gap-2 text-blue-700 ">
+        <div className="flex gap-2 text-blue-700 hover:text-blue-900 ">
           <Link to="/profile">
             <FontAwesomeIcon icon={faUser} style={{ color: "#1d4ed8" }} />
           </Link>
-          <Link to="/signin" className="text-blue-700">
+          <Link to="/signin" className="text-blue-700 hover:text-blue-900">
             Login
           </Link>
           <p className="text-blue-700">|</p>
-          <Link to="/signup" className="text-blue-700">
+          <Link to="/signup" className="text-blue-700 hover:text-blue-900">
             Register
           </Link>
         </div>

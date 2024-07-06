@@ -63,7 +63,10 @@ export default function AgriConnect() {
               </div>
             </div>
 
-            <a className="text-blue-700 text-sm mt-2" href="#">
+            <a
+              className="text-blue-700 hover:text-blue-900 text-sm mt-2"
+              href="#"
+            >
               more related tags
             </a>
           </div>
