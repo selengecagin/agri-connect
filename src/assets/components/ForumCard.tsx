@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 export default function ForumCard() {
 
   return (
-    <div className="flex flex-row border border-solid py-4">
+    <div className="flex flex-row border border-solid border-gray-200 py-4">
       <div className="flex flex-col justify-start px-4 py-3 gap-1 w-[150px] items-end text-sm">
         <p>2 votes</p>
         <p>1 answers</p>
@@ -14,7 +14,7 @@ export default function ForumCard() {
       <div className="flex flex-col w-full px-4 py-2 justify-center gap-3 ">
         <div className="flex- flex-col ">
           <a className="text-lg text-blue-700" href="#">Question Title</a>
-          <p>
+          <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem
