@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { loginUserAction, userAuthAction } from "../store/actions/userActions";
+import { useDispatch } from "react-redux";
 
 export default function SignInPage() {
+
   const {
     register,
     handleSubmit,
@@ -10,11 +13,16 @@ export default function SignInPage() {
   } = useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
-  const onSubmit = () => {
-    // Handle form submission
-    console.log();
-  };
+   const onSubmit = (data) => {
+     dispatch(loginUserAction(data, navigate));
+     console.log("Login Data:", data);
+   };
+
+     useEffect(() => {
+       dispatch(userAuthAction());
+     }, []);
 
   return (
     <div className="flex flex-col justify-center bg-[#fafafa] h-[700px] ">
