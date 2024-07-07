@@ -53,3 +53,30 @@ export const loginUserAction = (creds:Credentials, navigate: (arg0: string) => v
        dispatch(loginFailure(err.response.data));
      });
 };
+
+export const userAuthAction = (navigate: (arg0: number) => any) => (dispatch:Dispatch) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    api
+      .post("/verify", {
+        header: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        const user = res.data.user;
+        const newToken = res.data.token;
+
+        dispatch(loginSuccess(user));
+
+        setTimeout(() => navigate(-1), 5000);
+      })
+      .catch((err) => {
+        console.log("Login Error: ", err);
+        localStorage.removeItem("token");
+        if (api.defaults.headers.common["Authorization"]) {
+          delete api.defaults.headers.common["Authorization"];
+        }
+      });
+  }
+};
