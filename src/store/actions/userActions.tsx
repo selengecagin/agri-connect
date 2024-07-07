@@ -1,3 +1,5 @@
+import api from "../../api";
+
 export const GlobalUserActions = {
   setLoginSuccess: "LOGIN_SUCCESS",
   setLoginFailure: "LOGIN_FAILURE",
@@ -24,3 +26,20 @@ export const loginVerify = (data: any) => ({
 export const loginExit = () => ({
   type: GlobalUserActions.setLoginExit,
 });
+
+export const loginUserAction = (creds, navigate) => (dispatch) => {
+  localStorage.setItem("userName", creds.userName);
+
+  api
+    .post("/login", creds)
+    .then((res) => {
+      dispatch(loginSuccess(res.data));
+      localStorage.setItem("token", res.data.token);
+      setTimeout(() => {
+        navigate("/");
+      }, 250);
+    })
+    .catch((err) => {
+      dispatch(loginFailure(err.response.data));
+    });
+};
