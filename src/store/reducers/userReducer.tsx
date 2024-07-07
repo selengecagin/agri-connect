@@ -9,7 +9,6 @@ const initialState = {
   error: null,
 };
 
-
 const userReducer = (
   state = initialState,
   action: {
@@ -27,6 +26,21 @@ const userReducer = (
         isLoggedIn: true,
         error: null,
       };
+
+    case GlobalUserActions.setLoginFailure:
+      return { ...state, error: action.payload, isLoggedIn: false };
+
+    case GlobalUserActions.setLoginVerify:
+      return {
+        ...state,
+        id: action.payload.id,
+        name: action.payload.name,
+        email: action.payload.email,
+        isLoggedIn: true,
+      };
+
+    case GlobalUserActions.setLoginExit:
+      return initialState;
 
     default:
       return state;
