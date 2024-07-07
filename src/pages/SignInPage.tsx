@@ -16,6 +16,7 @@ export default function SignInPage() {
     const dispatch = useDispatch();
 {
   /* 
+  TODO Errors- couldn't fix
      const onSubmit = (data) => {
      dispatch(loginUserAction(data, navigate));
      console.log("Login Data:", data);
@@ -28,7 +29,7 @@ export default function SignInPage() {
 
    const onSubmit = () => {
    };
-   
+
   return (
     <div className="flex flex-col justify-center bg-[#fafafa] h-[700px] ">
       <form
