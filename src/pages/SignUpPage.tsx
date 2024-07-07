@@ -11,12 +11,13 @@ type FormValues = {
 };
 
 export default function SignUpPage() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+const {
+  register,
+  handleSubmit,
+  watch,
+  formState: { errors },
+} = useForm<FormValues>();
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
