@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 type FormValues = {
   name: string;
@@ -19,10 +20,31 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const onSubmit = () => {
-    // Handle form submission
-    console.log();
+const onSubmit = (data: FormValues) => {
+  let formattedData = {
+    name: data.name,
+    email: data.email,
+    password: data.password,
   };
+  setLoading(true);
+  delete data.confirmPassword;
+  api
+    .post("/signup", formattedData)
+    .then((res) => {
+      console.log("Post request response: ", res);
+      localStorage.setItem("token", res.data.token);
+      setLoading(false);
+      setTimeout(() => navigate(-1), 5000);
+    })
+    .catch((err) => {
+      console.error("Post request failed:", err);
+      setLoading(false);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+  console.log("Form data: ", formattedData);
+};
 
   return (
     <div>
