@@ -13,24 +13,24 @@ export default function AgriConnect() {
               <p>10000 questions</p>
               <div>
                 <div className="flex row rounded-lg border border-gray-300">
-                  <button
+                  <a
                     className="align-middle select-none font-sans text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none rounded-lg text-xs py-3 px-3 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-r-none border-r-0"
-                    type="button"
+                    href="#"
                   >
                     Newest
-                  </button>
-                  <button
+                  </a>
+                  <a
                     className="align-middle select-none font-sans text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-3 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-r-none border-r-0 rounded-l-none"
-                    type="button"
+                    href="#"
                   >
                     Oldest
-                  </button>
-                  <button
+                  </a>
+                  <a
                     className="align-middle select-none font-sans text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none rounded-lg text-xs py-3 px-3 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-l-none"
-                    type="button"
+                   href="#"
                   >
                     Unanswered
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

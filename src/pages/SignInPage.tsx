@@ -17,9 +17,9 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="bg-[#fafafa]">
+    <div className="flex flex-col justify-center bg-[#fafafa] h-[700px] ">
       <form
-        className="flex flex-col justify-center items-center gap-8 py-12"
+        className="flex flex-col justify-cente items-center gap-8 py-12"
         onSubmit={handleSubmit(onSubmit)}
       >
         <label htmlFor="email" className="w-[450px]">
