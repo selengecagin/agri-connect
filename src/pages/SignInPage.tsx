@@ -14,16 +14,21 @@ export default function SignInPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-
-   const onSubmit = (data) => {
+{
+  /* 
+     const onSubmit = (data) => {
      dispatch(loginUserAction(data, navigate));
      console.log("Login Data:", data);
    };
 
      useEffect(() => {
        dispatch(userAuthAction());
-     }, []);
+     }, []);*/
+}
 
+   const onSubmit = () => {
+   };
+   
   return (
     <div className="flex flex-col justify-center bg-[#fafafa] h-[700px] ">
       <form
