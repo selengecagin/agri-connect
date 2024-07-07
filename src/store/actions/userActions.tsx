@@ -69,6 +69,11 @@ export const userAuthAction = (navigate: (arg0: number) => any) => (dispatch:Dis
 
         dispatch(loginSuccess(user));
 
+        if (newToken) {
+          localStorage.setItem("token", newToken);
+          api.defaults.headers.common["Authorization"] = newToken;
+        }
+
         setTimeout(() => navigate(-1), 5000);
       })
       .catch((err) => {
