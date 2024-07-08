@@ -6,7 +6,7 @@ import AgriConnect from '../../pages/AgriConnect';
 const footerData = [
   {
     key: "Company Info",
-    opts: ["Legal", "Features", "Resources", "Get In Touch"],
+    opts: ["About", "Contact", "Privacy Policy", "Get In Touch"],
   },
 ];
 

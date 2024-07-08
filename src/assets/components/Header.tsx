@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../../index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
   return (
@@ -33,6 +34,12 @@ export default function Header() {
           >
             HarvestOverCrop
           </Link>
+        </div>
+
+
+        <div>
+
+          <SearchBar/>
         </div>
 
         <div className="flex gap-2 text-blue-700 hover:text-blue-900 ">
