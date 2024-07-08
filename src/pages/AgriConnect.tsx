@@ -44,8 +44,8 @@ export default function AgriConnect() {
 
         <div className="side-container flex flex-col w-1/3 mx-6 mt-1.5 gap-8">
 
-          <a
-            className={`rounded-md items-center py-2 text-base font-bold text-white  bg-blue-700 }`}
+          <a href="#"
+            className={`rounded-md items-center py-2 px-2 w-[125px] text-center text-white bg-blue-700 }`}
           >Ask Question</a>
 
           <div className="all-tags-container flex flex-col">
