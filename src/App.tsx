@@ -6,6 +6,10 @@ import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import AgriConnect from "./pages/AgriConnect";
 import HarvestOverCrop from "./pages/HarvestOverCrop";
+import AskQuestionPage from "./pages/AskQuestionPage.tsx";
+import CreatePostPage from "./pages/CreatePostPage.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
+import ProfileSettingsPage from "./pages/ProfileSettingsPage.tsx";
 
 function App() {
   return (
@@ -17,11 +21,15 @@ function App() {
         {/* <Route path="/harvest-over-crop" element={<HarvestOverCrop />}></Route> */}
         {/* <Route path="/bazaar" element={<Bazaar />}></Route> */}
 
-        <Route path="/signup" element={<SignUpPage />}></Route>
-        <Route path="/signin" element={<SignInPage />}></Route>
-        <Route path="/agri-connect" element={<AgriConnect />}></Route>
-        <Route path="/harvest-over-crop" element={<HarvestOverCrop />}></Route>
-        <Route path="*" element={<h1>404 Not Found Page</h1>} />
+          <Route path="/create-post" element={<CreatePostPage/>} />
+          <Route path="/ask-question" element={<AskQuestionPage/>} />
+          <Route path="/profile-settings" element={<ProfileSettingsPage />}></Route>
+          <Route path="/profile-page" element={<ProfilePage/>}></Route>
+          <Route path="/signup" element={<SignUpPage />}></Route>
+          <Route path="/signin" element={<SignInPage />}></Route>
+          <Route path="/agri-connect" element={<AgriConnect />}></Route>
+          <Route path="/harvest-over-crop" element={<HarvestOverCrop />}></Route>
+          <Route path="*" element={<h1>404 Not Found Page</h1>} />
       </Routes>
 
       <Footer />
