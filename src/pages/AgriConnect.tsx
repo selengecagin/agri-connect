@@ -38,7 +38,7 @@ export default function AgriConnect() {
             <div className="flex flex-col h-auto">
               <ForumCard />
             </div>
-            <div>Pagination ?</div>
+          
           </div>
         </div>
 
