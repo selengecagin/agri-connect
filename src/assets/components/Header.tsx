@@ -20,7 +20,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-8">
           <Link
             to={"/agri-connect"}
             className="text-[#737373] text-sm font-bold"

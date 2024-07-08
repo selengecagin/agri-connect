@@ -14,7 +14,7 @@ export default function SearchBar() {
 
   return (
     <div className="flex justify-center">
-      <div className="flex items-center w-full max-w-2xl border border-lightGray rounded-lg shadow-sm">
+      <div className="flex items-center w-full max-w-[800px] border border-lightGray rounded-lg shadow-sm">
         <div className="pl-3 flex items-center"></div>
         <input
           type="text"
