@@ -1,0 +1,16 @@
+.ask-question-page-container {
+    display: flex;
+    justify-content: center;
+}
+
+.ask-question-page {
+    max-width: 800px;
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 0.7rem;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+}
