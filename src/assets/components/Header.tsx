@@ -7,7 +7,9 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 export default function Header() {
   return (
     <header className="flex">
+
       <nav className="flex flex-row justify-between px-[5%] h-14 bg-white items-center w-full">
+
         <div className="text-xl">
           <Link
             to="/"
@@ -17,7 +19,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex flex-row  gap-4">
+        <div className="flex flex-row gap-4">
           <Link
             to={"/agri-connect"}
             className="text-[#737373] text-sm font-bold"
