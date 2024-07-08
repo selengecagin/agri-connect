@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { loginUserAction, userAuthAction } from "../store/actions/userActions";
+import { useDispatch } from "react-redux";
 
 export default function SignInPage() {
+
   const {
     register,
     handleSubmit,
@@ -10,16 +13,27 @@ export default function SignInPage() {
   } = useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+{
+  /* 
+  TODO Errors- couldn't fix
+     const onSubmit = (data) => {
+     dispatch(loginUserAction(data, navigate));
+     console.log("Login Data:", data);
+   };
 
-  const onSubmit = () => {
-    // Handle form submission
-    console.log();
-  };
+     useEffect(() => {
+       dispatch(userAuthAction());
+     }, []);*/
+}
+
+   const onSubmit = () => {
+   };
 
   return (
-    <div className="bg-[#fafafa]">
+    <div className="flex flex-col justify-center bg-[#fafafa] h-[700px] ">
       <form
-        className="flex flex-col justify-center items-center gap-8 py-12"
+        className="flex flex-col justify-cente items-center gap-8 py-12"
         onSubmit={handleSubmit(onSubmit)}
       >
         <label htmlFor="email" className="w-[450px]">
@@ -65,7 +79,7 @@ export default function SignInPage() {
         </label>
 
         <button
-          className={`rounded-md items-center px-16 py-4 text-base font-bold text-white  bg-blue-700  ${
+          className={`rounded-md items-center  py-3 px-3 text-base font-bold text-white  bg-blue-700  ${
             loading
               ? "opacity-50 cursor-not-allowed"
               : "hover:animate-wiggle-more hover:animate-twice"
