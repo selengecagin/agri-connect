@@ -11,6 +11,7 @@ import CreatePostPage from "./pages/CreatePostPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import ProfileSettingsPage from "./pages/ProfileSettingsPage.tsx";
 
+
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
         {/* <Route path="/" element={<HomePage />}></Route> */}
         {/* <Route path="/harvest-over-crop" element={<HarvestOverCrop />}></Route> */}
         {/* <Route path="/bazaar" element={<Bazaar />}></Route> */}
+
 
           <Route path="/create-post" element={<CreatePostPage/>} />
           <Route path="/ask-question" element={<AskQuestionPage/>} />
@@ -35,6 +37,8 @@ function App() {
       <Footer />
     </>
   );
+}{
+
 }
 
 export default App;
