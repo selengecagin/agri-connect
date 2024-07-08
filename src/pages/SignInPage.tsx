@@ -79,7 +79,7 @@ export default function SignInPage() {
         </label>
 
         <button
-          className={`rounded-md items-center px-16 py-4 text-base font-bold text-white  bg-blue-700  ${
+          className={`rounded-md items-center  py-3 px-3 text-base font-bold text-white  bg-blue-700  ${
             loading
               ? "opacity-50 cursor-not-allowed"
               : "hover:animate-wiggle-more hover:animate-twice"

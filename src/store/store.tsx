@@ -11,7 +11,7 @@ import userReducer from "./reducers/userReducer";
 //örneğin store içerisinden categories çekmek için store.global.categories den almalıyız.
 export const reducers = combineReducers({
   // TODO createStore throws an error when uer:userReducer implemented
-  //user: userReducer,
+// user: userReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunk, logger));

@@ -1,5 +1,5 @@
 import React from "react";
-import ForumCard from "../assets/components/ForumCard";
+import ForumCard from "../assets/components/ForumCard.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,7 +27,7 @@ export default function AgriConnect() {
                   </a>
                   <a
                     className="align-middle select-none font-sans text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none rounded-lg text-xs py-3 px-3 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-l-none"
-                   href="#"
+                    href=""
                   >
                     Unanswered
                   </a>
@@ -42,7 +42,12 @@ export default function AgriConnect() {
           </div>
         </div>
 
-        <div className="side-container flex flex-col w-1/3 mx-6 mt-16 gap-8">
+        <div className="side-container flex flex-col w-1/3 mx-6 mt-1.5 gap-8">
+
+          <a
+            className={`rounded-md items-center py-2 text-base font-bold text-white  bg-blue-700 }`}
+          >Ask Question</a>
+
           <div className="all-tags-container flex flex-col">
             <h2 className="mb-4">Related Tags</h2>
 
