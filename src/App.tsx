@@ -5,6 +5,7 @@ import Header from "./assets/components/Header";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import AgriConnect from "./pages/AgriConnect";
+import HarvestOverCrop from "./pages/HarvestOverCrop";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />}></Route>
         <Route path="/signin" element={<SignInPage />}></Route>
         <Route path="/agri-connect" element={<AgriConnect />}></Route>
+        <Route path="/harvest-over-crop" element={<HarvestOverCrop />}></Route>
         <Route path="*" element={<h1>404 Not Found Page</h1>} />
       </Routes>
 
