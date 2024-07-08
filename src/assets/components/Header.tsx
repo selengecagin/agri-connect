@@ -31,10 +31,6 @@ export default function Header() {
           >
             HarvestOverCrop
           </Link>
-
-          <Link to={"/bazaar"} className="text-[#737373] text-sm font-bold">
-            Bazaar
-          </Link>
         </div>
 
         <div className="flex gap-2 text-blue-700 hover:text-blue-900 ">
