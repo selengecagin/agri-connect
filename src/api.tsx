@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://mock-api-url.com",
+  baseURL: "http://172.16.99.112:8080",
 });
 
 export default api;
