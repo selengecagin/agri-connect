@@ -14,7 +14,7 @@ export default function Header() {
 
         <div className="text-xl">
           <Link
-            to="/"
+            to="/harvest-over-crop"
             className="text-blue-700 hover:text-blue-900 text-2xl font-bold"
           >
             AgriConnect
