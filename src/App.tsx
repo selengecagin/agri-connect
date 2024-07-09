@@ -23,17 +23,19 @@ function App() {
         {/* <Route path="/harvest-over-crop" element={<HarvestOverCrop />}></Route> */}
         {/* <Route path="/bazaar" element={<Bazaar />}></Route> */}
 
+        <Route path="/create-post" element={<CreatePostPage />} />
+        <Route path="/ask-question" element={<AskQuestionPage />} />
+        <Route
+          path="/profile-settings"
+          element={<ProfileSettingsPage />}
+        ></Route>
+        <Route path="/profile-page" element={<ProfilePage />}></Route>
+        <Route path="/signup" element={<SignUpPage />}></Route>
+        <Route path="/signin" element={<SignInPage />}></Route>
+        <Route path="/agri-connect" element={<HarvestOverCrop />}></Route>
+        <Route path="/harvest-over-crop" element={<AgriConnect />}></Route>
+        <Route path="*" element={<h1>404 Not Found Page</h1>} />
 
-          <Route path="/create-post" element={<CreatePostPage/>} />
-          <Route path="/post" element={<ViewPostPage/>} />
-          <Route path="/ask-question" element={<AskQuestionPage/>} />
-          <Route path="/profile-settings" element={<ProfileSettingsPage />}></Route>
-          <Route path="/profile-page" element={<ProfilePage/>}></Route>
-          <Route path="/signup" element={<SignUpPage />}></Route>
-          <Route path="/signin" element={<SignInPage />}></Route>
-          <Route path="/agri-connect" element={<AgriConnect />}></Route>
-          <Route path="/harvest-over-crop" element={<HarvestOverCrop />}></Route>
-          <Route path="*" element={<h1>404 Not Found Page</h1>} />
       </Routes>
 
       <Footer />

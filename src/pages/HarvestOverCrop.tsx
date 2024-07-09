@@ -1,5 +1,6 @@
 import React from "react";
 import PostComponent from "../assets/components/PostComponent";
+import AdArea from "../assets/components/AdArea";
 
 export default function HarvestOverCrop() {
   return (
@@ -9,8 +10,8 @@ export default function HarvestOverCrop() {
           <PostComponent />
         </div>
 
-        <div className="flex flex-col w-1/3 mx-6 mt-8 p-6 border rounded-md  justify-start shadow-lg">
-          <div className="flex flex-col gap-4">
+        <div className="flex flex-col w-1/3 mx-6 mt-4 p-6 justify-start gap-8">
+          <div className="flex flex-col gap-4 h-[450px] border rounded shadow-md p-4">
             <h1 className="text-lg text-[#737373] font-bold">
               Recommended Contacts
             </h1>
@@ -20,6 +21,12 @@ export default function HarvestOverCrop() {
               <p>Username</p>
             </div>
           </div>
+
+          <div className="advertisementArea">
+            <AdArea/>
+          </div>
+
+
         </div>
       </div>
     </div>
