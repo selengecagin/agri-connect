@@ -1,4 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk,  PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
+
 
 interface PostState {
     image: string | null;
