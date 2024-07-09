@@ -35,10 +35,10 @@ export default function AgriConnect() {
               </div>
             </div>
 
-            <div className="flex flex-col h-auto">
+            <div className="flex flex-col">
               <ForumCard />
             </div>
-            <div>Pagination ?</div>
+          
           </div>
         </div>
 
