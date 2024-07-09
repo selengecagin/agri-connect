@@ -1,95 +1,107 @@
-import React, { useEffect, useState } from "react";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { loginUserAction, userAuthAction } from "../store/actions/userActions";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 
-export default function SignInPage() {
+import { toast } from "react-toastify";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { sendLoginInfo } from "../redux/userSlice";
+import { useAppDispatch } from "../redux/store";
 
+const SignInPage = () => {
+  const [hidePassword, setHidePassword] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  type FormData = {
+    email: string;
+    password: string;
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch();
-{
-  /* 
-  TODO Errors- couldn't fix
-     const onSubmit = (data) => {
-     dispatch(loginUserAction(data, navigate));
-     console.log("Login Data:", data);
-   };
+  } = useForm<FormData>();
 
-     useEffect(() => {
-       dispatch(userAuthAction());
-     }, []);*/
-}
-
-   const onSubmit = () => {
-   };
-
+  const onSubmit = (data: FormData) => {
+    dispatch(sendLoginInfo({ ...data }))
+      .unwrap()
+      .then(() => {
+        toast.success("Successfully logged in");
+        location.state ? navigate(location.state.pathname) : navigate("/");
+      })
+      .catch((error:any) => {
+        toast.error("Login failed");
+        console.log(error);
+      });
+  };
   return (
-    <div className="flex flex-col justify-center bg-[#fafafa] h-[700px] ">
-      <form
-        className="flex flex-col justify-cente items-center gap-8 py-12"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <label htmlFor="email" className="w-[450px]">
-          <p className="pb-2 text-lg font-normal text-darkTextColor">Email</p>
-          <input
-            type="text"
-            placeholder="example@domain.com"
-            className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm"
-            {...register("email", {
-              required: "Please enter email address.",
-            })}
-          ></input>
-          {typeof errors.email?.message === "string" && (
-            <p className="text-red-500">{errors.email?.message}</p>
+    <section
+      id="singin-form"
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center justify-center  p-12 "
+    >
+      <form className="mx-auto w-full max-w-xl bg-white pt-16 pb-10">
+        <div className="mb-5 relative">
+          <label className="mb-3 block text-base font-medium text-[#07074D]">
+            Email Address
+            <input
+              type="email"
+              {...register("email", {
+                required: "Email is required",
+                validate: (val: any) => {
+                  const emailRegex =
+                    /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                  if (!emailRegex.test(val)) {
+                    return "Please enter a valid email address.";
+                  }
+                },
+              })}
+              placeholder="Enter your email"
+              className={`w-full rounded-md border  bg-white py-3 px-6 mt-2 text-base font-medium text-[#6B7280] outline-none ${
+                errors.email
+                  ? "focus:border-red-400 border-red-400"
+                  : "focus:border-sky-500 border-[#e0e0e0]"
+              } focus:shadow-md `}
+            />
+          </label>
+          {errors.email && (
+            <p role="alert" className="text-red-400 absolute top-0 right-0">
+              {errors.email.message}
+            </p>
           )}
-        </label>
-
-        {/* TODO implement remember me feature */}
-        {/* <label htmlFor="rememberMe">
-          <input
-            type="checkbox"
-            checked={rememberMe}
-            onChange={handleRememberMe}
-          />
-          Remember Me
-        </label> */}
-
-        <label htmlFor="password" className="passwordArea w-[450px]">
-          <p className="pb-2 text-lg font-normal text-darkTextColor">
+        </div>
+        <div className="mb-5 relative">
+          <label className="mb-3 block text-base font-medium text-[#07074D]">
             Password
-          </p>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm"
-            {...register("password", {
-              required: "Please enter password.",
-            })}
-          ></input>
-          {typeof errors.password?.message === "string" && (
-            <p className="text-red-500">{errors.password?.message}</p>
-          )}
-        </label>
+            <input
+              type={hidePassword ? "password" : "text"}
+              {...register("password")}
+              placeholder="Enter Password"
+              className={`w-full rounded-md border  bg-white py-3 px-6 mt-2 text-base font-medium text-[#6B7280] outline-none focus:border-sky-500 border-[#e0e0e0] focus:shadow-md `}
+            />
+            <Icon
+              icon={hidePassword ? "octicon:eye-closed-16" : "octicon:eye-16"}
+              className="w-6 h-6 absolute top-1/2 right-3 text-neutral-500"
+              onClick={() => setHidePassword(!hidePassword)}
+            />
+          </label>
+        </div>
 
         <button
-          className={`rounded-md items-center  py-3 px-3 text-base font-bold text-white  bg-blue-700  ${
-            loading
-              ? "opacity-50 cursor-not-allowed"
-              : "hover:animate-wiggle-more hover:animate-twice"
-          }`}
-          type="submit"
-          disabled={loading}
+          className={`hover:bg-blue-700 w-full rounded-md bg-blue-700 py-3 px-8 text-center text-base font-semibold text-white outline-none`}
         >
-          {loading ? "Loading..." : "Sign In"}
+          LOGIN
         </button>
       </form>
-    </div>
+      <p>
+        Don't have an account?
+        <Link to="/signup" className="text-center">
+          <span className="text-sky-500">Sign up</span>
+        </Link>
+      </p>
+    </section>
   );
-}
+};
+
+export default SignInPage;

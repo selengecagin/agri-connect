@@ -49,7 +49,7 @@ export default function AgriConnect() {
           >Ask Question</a>
 
           <div className="all-tags-container flex flex-col">
-            <h2 className="mb-4">Related Tags</h2>
+            <h2 className="mb-4">Trending Tags</h2>
 
             <div className="flex flex-col justify-center gap-1">
               <div className="tag-container flex flex-row gap-2">
@@ -74,7 +74,7 @@ export default function AgriConnect() {
               className="text-blue-700 hover:text-blue-900 text-sm mt-2"
               href="#"
             >
-              more related tags
+              more trending tags
             </a>
           </div>
 
