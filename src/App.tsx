@@ -10,6 +10,7 @@ import AskQuestionPage from "./pages/AskQuestionPage.tsx";
 import CreatePostPage from "./pages/CreatePostPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import ProfileSettingsPage from "./pages/ProfileSettingsPage.tsx";
+import ViewPostPage from "./pages/ViewPostPage.tsx";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 
 
           <Route path="/create-post" element={<CreatePostPage/>} />
+          <Route path="/post" element={<ViewPostPage/>} />
           <Route path="/ask-question" element={<AskQuestionPage/>} />
           <Route path="/profile-settings" element={<ProfileSettingsPage />}></Route>
           <Route path="/profile-page" element={<ProfilePage/>}></Route>
