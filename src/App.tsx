@@ -10,6 +10,7 @@ import AskQuestionPage from "./pages/AskQuestionPage.tsx";
 import CreatePostPage from "./pages/CreatePostPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import ProfileSettingsPage from "./pages/ProfileSettingsPage.tsx";
+import ViewPostPage from "./pages/ViewPostPage.tsx";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/agri-connect" element={<HarvestOverCrop />}></Route>
         <Route path="/harvest-over-crop" element={<AgriConnect />}></Route>
         <Route path="*" element={<h1>404 Not Found Page</h1>} />
+
       </Routes>
 
       <Footer />
