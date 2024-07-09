@@ -58,11 +58,24 @@ const PostComponent: React.FC = () => {
                   exercitation ullamco laboris.
                 </p>
               </div>
-              <div className="flex flex-row justify-end gap-2 text-sm">
-                <a href="#" className="text-blue-700 hover:text-blue-900">
-                  @username
-                </a>
-                <p>less than 1 minute ago</p>
+              <div className="flex flex-row justify-between">
+                <div className="flex flex-col justify-center gap-1">
+                  <div className="tag-container flex flex-row gap-2">
+                    <a
+                      href="https://example.com"
+                      className="px-[0.5rem] bg-gray-200 text-black text-sm lowercase text-center rounded hover:bg-gray-300"
+                    >
+                      crops
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex flex-row justify-between gap-2 text-sm">
+                  <a href="#" className="text-blue-700 hover:text-blue-900">
+                    @username
+                  </a>
+                  <p>less than 1 minute ago</p>
+                </div>
               </div>
             </div>
           </div>
