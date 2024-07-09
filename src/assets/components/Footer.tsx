@@ -1,6 +1,6 @@
 import React from "react";
 import SocialMediaComponent from "./SocialMediaComponent";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import AgriConnect from '../../pages/AgriConnect';
 
 const footerData = [
