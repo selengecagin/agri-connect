@@ -12,12 +12,14 @@ interface UserData {
   name: string;
   email: string;
   token: string;
+  isLoggedIn: boolean;
 }
 
 const initialState: UserData = {
   name: "",
   email: "",
   token: "",
+  isLoggedIn: false,
 };
 
 export const sendLoginInfo: any = createAsyncThunk(
@@ -43,6 +45,7 @@ export const userSlice = createSlice({
         email: action.payload.email,
         name: action.payload.name,
         token: action.payload.token,
+        isLoggedIn: true,
       };
     },
   },
@@ -54,6 +57,7 @@ export const userSlice = createSlice({
         email: action.payload.email,
         name: action.payload.name,
         token: action.payload.token,
+        isLoggedIn: true,
       };
     });
   },
