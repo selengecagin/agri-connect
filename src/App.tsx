@@ -34,7 +34,7 @@ function App() {
         <Route path="/signin" element={<SignInPage />}></Route>
         <Route path="/agri-connect" element={<HarvestOverCrop />}></Route>
         <Route path="/harvest-over-crop" element={<AgriConnect />}></Route>
-        <Route path="*" element={<h1>404 Not Found Page</h1>} />
+        <Route path="*" element={<h1>404 Not Found Pag</h1>} />
 
       </Routes>
 
