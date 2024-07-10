@@ -37,9 +37,7 @@ export default function Header() {
           </Link>
         </div>
 
-
         <div>
-
           <SearchBar/>
         </div>
 
