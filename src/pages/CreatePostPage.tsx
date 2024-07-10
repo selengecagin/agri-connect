@@ -39,7 +39,7 @@ const CreatePostPage: React.FC = () => {
                 className="mb-4 px-4 py-2 bg-gray-200 rounded"
                 onClick={() => navigate(-1)}
             >
-                &larr; Geri Dön
+                &larr; Back
             </button>
             <form onSubmit={handleSubmit}>
                 <div className="flex gap-4">
@@ -57,7 +57,7 @@ const CreatePostPage: React.FC = () => {
                             </div>
                         ) : (
                             <label className="w-full h-80 flex items-center justify-center border-2 border-dashed border-gray-300 rounded cursor-pointer">
-                                Fotoğraf Yükle
+                                Upload Image
                                 <input type="file" onChange={handleImageChange} className="hidden" />
                             </label>
                         )}
@@ -69,7 +69,7 @@ const CreatePostPage: React.FC = () => {
                         </div>
                         <textarea
                             className="w-full h-48 p-2 border border-gray-300 rounded"
-                            placeholder="Açıklama ekle..."
+                            placeholder="Add description..."
                             value={description}
                             onChange={(e) => dispatch(setDescription(e.target.value))}
                         ></textarea>
@@ -77,7 +77,7 @@ const CreatePostPage: React.FC = () => {
                             type="submit"
                             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                         >
-                            Postu Yolla
+                            Send Post
                         </button>
                     </div>
                 </div>
