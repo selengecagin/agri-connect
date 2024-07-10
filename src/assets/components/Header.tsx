@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../index.css";
 import SearchBar from "./SearchBar";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
@@ -29,19 +29,27 @@ export default function Header() {
         </div>
 
         <div className="flex flex-row gap-8">
-          <Link
-            to={"/agri-connect"}
-            className="text-[#737373] text-sm font-bold"
+          <NavLink
+            to="/agri-connect"
+            className={({ isActive }) =>
+              isActive
+                ? "text-[#000000] text-sm font-bold"
+                : "text-[#737373] text-sm font-bold"
+            }
           >
             AgriConnect
-          </Link>
+          </NavLink>
 
-          <Link
-            to={"/harvest-over-crop"}
-            className="text-[#737373] text-sm font-bold"
+          <NavLink
+            to="/harvest-over-crop"
+            className={({ isActive }) =>
+              isActive
+                ? "text-[#000000] text-sm font-bold"
+                : "text-[#737373] text-sm font-bold"
+            }
           >
             HarvestOverCrop
-          </Link>
+          </NavLink>
         </div>
 
         <div>
