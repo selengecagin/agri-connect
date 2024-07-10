@@ -27,21 +27,24 @@ const SignInPage = () => {
     dispatch(sendLoginInfo({ ...data }))
       .unwrap()
       .then(() => {
-        toast.success("Successfully logged in");
-        location.state ? navigate(location.state.pathname) : navigate("/");
+        //location.state ? navigate(location.state.pathname) : navigate("/");
+        navigate("/");
+        
+        console.log(location.state);
       })
-      .catch((error:any) => {
-        toast.error("Login failed");
+      .catch((error: any) => {
         console.log(error);
       });
   };
   return (
     <section
       id="singin-form"
-      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col items-center justify-center  p-12 "
     >
-      <form className="mx-auto w-full max-w-xl bg-white pt-16 pb-10">
+      <form
+        className="mx-auto w-full max-w-xl bg-white pt-16 pb-10"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="mb-5 relative">
           <label className="mb-3 block text-base font-medium text-[#07074D]">
             Email Address
