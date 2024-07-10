@@ -13,7 +13,7 @@ const SignUpPage = () => {
     AxiosError<any> | undefined
   ] = useAxios({
     reqType: "post",
-    endpoint: "signup",
+    endpoint: "users",
     navPath: "/",
   });
 
