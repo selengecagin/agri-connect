@@ -2,6 +2,7 @@ import React from "react";
 import ForumCard from "../assets/components/ForumCard.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export default function AgriConnect() {
   return (
@@ -38,15 +39,16 @@ export default function AgriConnect() {
             <div className="flex flex-col">
               <ForumCard />
             </div>
-          
           </div>
         </div>
 
         <div className="side-container flex flex-col w-1/3 mx-6 mt-1.5 gap-8">
-
-          <a href="#"
+          <Link
+            to="/ask-question"
             className={`rounded-md items-center py-2 px-2 w-[125px] text-center text-white bg-blue-700 }`}
-          >Ask Question</a>
+          >
+            Ask Question
+          </Link>
 
           <div className="all-tags-container flex flex-col">
             <h2 className="mb-4">Trending Tags</h2>
