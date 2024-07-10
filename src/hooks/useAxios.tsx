@@ -32,9 +32,9 @@ export const useAxios = ({
 
   const axiosRequest = async (
     payload?: any,
-    toastify = false
+    // toastify = false
   ): Promise<void> => {
-    const toastLoading = toastify ? toast.loading("Please wait...") : "";
+    // const toastLoading = toastify ? toast.loading("Please wait...") : "";
     setLoading(true);
     try {
       const res = await axiosInstance[reqType](
@@ -44,13 +44,13 @@ export const useAxios = ({
 
       successCallback && successCallback();
 
-      toast.update(toastLoading, {
-        render: `Account successfully created. You need to click the link in the email to activate your account!`,
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-        className: "w-[500px]",
-      });
+      // toast.update(toastLoading, {
+      //   render: `Account successfully created. You need to click the link in the email to activate your account!`,
+      //   type: "success",
+      //   isLoading: false,
+      //   autoClose: 3000,
+      //   className: "w-[500px]",
+      // });
 
       if (endpoint === "signup") {
         localStorage.setItem("token", res.data.token);
@@ -61,12 +61,12 @@ export const useAxios = ({
       }
       return res.data;
     } catch (err: any) {
-      toast.update(toastLoading, {
-        render: `Your account could not be created. Please try again.`,
-        type: "error",
-        isLoading: false,
-        autoClose: 1000,
-      });
+      // toast.update(toastLoading, {
+      //   render: `Your account could not be created. Please try again.`,
+      //   type: "error",
+      //   isLoading: false,
+      //   autoClose: 1000,
+      // });
 
       setError(err);
       errorCallback && errorCallback();
