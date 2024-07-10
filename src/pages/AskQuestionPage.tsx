@@ -86,7 +86,7 @@ export default function AskQuestionPage() {
                             Tags
                         </label>
                         <p className="text-sm text-gray-500">
-                            Add up to 5 tags to describe what your question is about. Start typing to see suggestions.
+                            Add up to 5. tags to describe what your question is about. Start typing to see suggestions.
                         </p>
                         <div className="flex flex-wrap items-center border border-gray-300 rounded-md shadow-sm p-2">
                             {tags.map((tag, index) => (
