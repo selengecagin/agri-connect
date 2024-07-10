@@ -16,7 +16,7 @@ export default function HarvestOverCrop() {
         <div className="flex flex-col w-1/3 mx-6 mt-4 p-6 justify-start gap-8">
           <Link
             to="/create-post"
-            className={`rounded-md items-center py-2 px-2 w-[125px] text-center text-white bg-blue-700 }`}
+            className={`rounded-md items-center py-2 px-2 w-[125px] text-center text-white bg-green-600 hover:bg-green-700 }`}
           >
             Create Post
           </Link>

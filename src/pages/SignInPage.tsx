@@ -92,7 +92,7 @@ const SignInPage = () => {
         </div>
 
         <button
-          className={`hover:bg-blue-700 w-full rounded-md bg-blue-700 py-3 px-8 text-center text-base font-semibold text-white outline-none`}
+          className={`hover:bg-green-700 w-full rounded-md bg-green-800 py-3 px-8 text-center text-base font-semibold text-white outline-none`}
         >
           LOGIN
         </button>

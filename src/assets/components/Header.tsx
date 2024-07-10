@@ -22,7 +22,7 @@ export default function Header() {
         <div className="text-xl">
           <Link
             to="/harvest-over-crop"
-            className="text-blue-700 hover:text-blue-900 text-2xl font-bold"
+            className=" text-green-800 hover:text-green-900 text-4xl font-bold"
           >
             AgriConnect
           </Link>
@@ -33,7 +33,7 @@ export default function Header() {
             to="/agri-connect"
             className={({ isActive }) =>
               isActive
-                ? "text-[#000000] text-sm font-bold"
+                ? "text-[#4a4a4a] text-sm font-bold"
                 : "text-[#737373] text-sm font-bold"
             }
           >
@@ -44,7 +44,7 @@ export default function Header() {
             to="/harvest-over-crop"
             className={({ isActive }) =>
               isActive
-                ? "text-[#000000] text-sm font-bold"
+                ? "text-[#4a4a4a] text-sm font-bold"
                 : "text-[#737373] text-sm font-bold"
             }
           >
