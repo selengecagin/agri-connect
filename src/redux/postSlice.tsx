@@ -25,3 +25,4 @@ const postSlice = createSlice({
 
 export const { setImage, setDescription } = postSlice.actions;
 export default postSlice.reducer;
+export type { PostState };

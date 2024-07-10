@@ -1,65 +1,59 @@
-import React, {useState} from "react";
-import {useForm} from "react-hook-form";
-import {useNavigate} from "react-router-dom";
-import api from "../api";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { useForm } from "react-hook-form";
+import { useAxios } from "../hooks/useAxios";
+import { AxiosError } from "axios";
+import { useState } from "react";
 
-type FormValues = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword?: string;
-};
+const SignUpPage = () => {
+  const [hidePassword, setHidePassword] = useState<boolean>(true);
 
-export default function SignUpPage() {
-const {
-  register,
-  handleSubmit,
-  watch,
-  formState: { errors },
-} = useForm<FormValues>();
+  const [postRequest, postLoading]: [
+    (payload?: any, toastify?: boolean) => Promise<void>,
+    boolean,
+    AxiosError<any> | undefined
+  ] = useAxios({
+    reqType: "post",
+    endpoint: "signup",
+    navPath: "/",
+  });
 
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
-const onSubmit = (data: FormValues) => {
-  let formattedData = {
-    name: data.name,
-    email: data.email,
-    password: data.password,
+  type FormData = {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
   };
-  setLoading(true);
-  delete data.confirmPassword;
-  api
-    .post("/signup", formattedData)
-    .then((res) => {
-      console.log("Post request response: ", res);
-      localStorage.setItem("token", res.data.token);
-      setLoading(false);
-      setTimeout(() => navigate(-1), 5000);
-    })
-    .catch((err) => {
-      console.error("Post request failed:", err);
-      setLoading(false);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-  console.log("Form data: ", formattedData);
-};
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit = (data: FormData) => {
+    const submitData: any = {
+      name: data.name.trim(),
+      email: data.email,
+      password: data.password,
+    };
+    postRequest(submitData, true);
+  };
 
   return (
-    <div>
+    <div id="sign-up-form">
       <form
         className="flex flex-col justify-center items-center gap-8 py-12 bg-[#fafafa] h-[700px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col items-center gap-6">
-          <label htmlFor="name" className="w-[450px]">
-            <p className="pb-2 text-lg font-normal text-darkTextColor">Name</p>
+          <label className="inputLabel w-[450px]" htmlFor="name">
+            <p className="pb-2 text-lg font-normal">Name</p>
             <input
               type="text"
               placeholder="Your Full Name"
-              className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm "
+              className={`defaultInput ${
+                errors.name ? "inputWithError" : ""
+              } w-[450px] h-[50px] pl-3 shrink-0 shadow-sm`}
               {...register("name", {
                 required: "Please enter your name.",
                 minLength: {
@@ -67,93 +61,123 @@ const onSubmit = (data: FormValues) => {
                   message: "Your name should be at least 3 characters long.",
                 },
               })}
-            ></input>
-            {typeof errors.name?.message === "string" && (
-              <p className="text-red-500">{errors.name?.message}</p>
-            )}
+            />
           </label>
+          {errors.name && (
+            <p
+              role="alert"
+              className="formErrorMessage text-sm text-start text-red-500"
+            >
+              {errors.name.message}
+            </p>
+          )}
 
-          <label htmlFor="email" className="w-[450px]">
-            <p className="pb-2 text-lg font-normal text-darkTextColor">Email</p>
+          <label className="inputLabel w-[450px]" htmlFor="email">
+            <p className="pb-2 text-lg font-normal">Email</p>
             <input
-              type="text"
+              type="email"
               placeholder="example@domain.com"
-              className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm"
+              className={`defaultInput ${
+                errors.email ? "inputWithError" : ""
+              } w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm`}
               {...register("email", {
                 required: "Please enter your email address.",
-                pattern: {
-                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-                  message:
-                    "Looks like this isn’t a valid email format. Please check and try again.",
+                validate: (val: any) => {
+                  const emailRegex =
+                    /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                  if (!emailRegex.test(val)) {
+                    return "Looks like this isn’t a valid email format. Please check and try again.";
+                  }
                 },
               })}
-            ></input>
-            {typeof errors.email?.message === "string" && (
-              <p className="text-red-500">{errors.email?.message}</p>
-            )}
+            />
           </label>
+          {errors.email && (
+            <p role="alert" className="formErrorMessage text-red-500">
+              {errors.email.message}
+            </p>
+          )}
 
-          <label htmlFor="password" className="passwordArea w-[450px]">
-            <p className="pb-2 text-lg font-normal text-darkTextColor">
+          <label className="inputLabel w-[450px]" htmlFor="password">
+            <p className="pb-2 text-lg font-normal">
               Password
             </p>
             <input
-              type="password"
+              type={hidePassword ? "password" : "text"}
               placeholder="Create a Password"
-              className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm"
               {...register("password", {
-                required: "Please create a password.",
-                pattern: {
-                  value:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                  message:
-                    "Your password should be at least 8 characters long and include uppercase letters, lowercase letters, numbers, and special characters (e.g., @, #, $).",
+                required: "Password is required",
+                minLength: {
+                  value: 8,
+                  message: "At least 8 character required",
+                },
+                validate: (val: any) => {
+                  const numbers = /[0-9]/g;
+                  const upperCaseLetters = /[A-Z]/g;
+                  const lowerCaseLetters = /[a-z]/g;
+                  if (!numbers.test(val)) {
+                    return "At least one number required";
+                  }
+                  if (!upperCaseLetters.test(val)) {
+                    return "At least one capital letter needed";
+                  }
+                  if (!lowerCaseLetters.test(val)) {
+                    return "At least one lowercase letter needed";
+                  }
                 },
               })}
-            ></input>
-            {typeof errors.password?.message === "string" && (
-              <p className="text-red-500">{errors.password?.message}</p>
-            )}
+              className={`defaultInput ${
+                errors.password ? "inputWithError" : ""
+              } w-[450px] h-[50px] pl-3 items-start shrink-0 shadow-sm text-red-500`}
+            />
+            <Icon
+              icon={hidePassword ? "octicon:eye-closed-16" : "octicon:eye-16"}
+              className="w-6 h-6 absolute top-1/2 right-3 text-neutral-500"
+              onClick={() => setHidePassword(!hidePassword)}
+            />
           </label>
-
-          <label
-            htmlFor="confirmPassword"
-            className="confirmPasswordArea w-[450px]"
-          >
-            <p className="pb-2 text-lg font-normal text-darkTextColor">
-              Confirm Password
+          {errors.password && (
+            <p role="alert" className="formErrorMessage ">
+              {errors.password?.message}
             </p>
+          )}
+
+          <label className="inputLabel w-[450px]" htmlFor="confirmPassword">
+            <p className="pb-2 text-lg font-normal">Confirm Password</p>
             <input
               type="password"
-              placeholder="Confirm Password"
-              className="w-[450px] h-[50px] pl-3 items-center shrink-0 shadow-sm"
               {...register("confirmPassword", {
-                required: "Please confirm your password.",
-                validate: (value) =>
-                  value === watch("password") ||
-                  "Passwords do not match. Try again.",
+                required: true,
+                validate: (val: string) => {
+                  if (watch("password") != val) {
+                    return "Password do not match";
+                  }
+                },
               })}
-            ></input>
-            {typeof errors.confirmPassword?.message === "string" && (
-              <p className="text-red-500">{errors.confirmPassword?.message}</p>
-            )}
+              placeholder="Confirm Password"
+              className={`defaultInput ${
+                errors.confirmPassword ? "inputWithError" : ""
+              } w-[450px] h-[50px] pl-3 shrink-0 shadow-sm text-red-500`}
+            />
           </label>
+          {errors.confirmPassword && (
+            <p role="alert" className="formErrorMessage">
+              {errors.confirmPassword.message}
+            </p>
+          )}
 
-          <div className="registerButtonArea">
-            <button
-              className={`rounded-md items-center px-16 py-4 text-base font-bold text-white bg-blue-700 ${
-                loading
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:animate-wiggle-more hover:animate-twice"
-              }`}
-              type="submit"
-              disabled={loading}
-            >
-              {loading ? "Submitting..." : "REGISTER"}
-            </button>
-          </div>
+          <button
+            disabled={postLoading ? true : false}
+            className={`hover:bg-blue-700 w-full rounded-md bg-blue-700 py-3 px-8 text-center text-base font-semibold text-white outline-none ${
+              postLoading ? "opacity-50" : "opacity-100"
+            }`}
+          >
+            Register
+          </button>
         </div>
       </form>
     </div>
   );
-}
+};
+
+export default SignUpPage;
