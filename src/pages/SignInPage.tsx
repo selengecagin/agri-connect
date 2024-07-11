@@ -26,9 +26,8 @@ const SignInPage = () => {
     dispatch(sendLoginInfo({ ...data }))
       .unwrap()
       .then(() => {
-        //location.state ? navigate(location.state.pathname) : navigate("/");
+     location.state ? navigate(location.state.pathname) : navigate("/");
         navigate("/");
-        
         console.log(location.state);
       })
       .catch((error: any) => {
@@ -44,11 +43,13 @@ const SignInPage = () => {
         className="mx-auto w-full max-w-xl bg-white pt-16 pb-10"
         onSubmit={handleSubmit(onSubmit)}
       >
+
         <div className="mb-5 relative">
           <label className="mb-3 block text-base font-medium text-[#07074D]">
             Email Address
             <input
               type="email"
+              id="sign-in-email"
               {...register("email", {
                 required: "Email is required",
                 validate: (val: any) => {
@@ -67,6 +68,11 @@ const SignInPage = () => {
               } focus:shadow-md `}
             />
           </label>
+
+
+
+
+
           {errors.email && (
             <p role="alert" className="text-red-400 absolute top-0 right-0">
               {errors.email.message}
@@ -78,6 +84,7 @@ const SignInPage = () => {
             Password
             <input
               type={hidePassword ? "password" : "text"}
+              id="sign-in-password"
               {...register("password")}
               placeholder="Enter Password"
               className={`w-full rounded-md border  bg-white py-3 px-6 mt-2 text-base font-medium text-[#6B7280] outline-none focus:border-sky-500 border-[#e0e0e0] focus:shadow-md `}

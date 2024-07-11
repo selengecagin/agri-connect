@@ -30,6 +30,7 @@ export const sendLoginInfo: any = createAsyncThunk(
       payload
     );
     localStorage.setItem("token", response?.data?.token);
+    
     console.log(response);
     return response?.data;
   }
