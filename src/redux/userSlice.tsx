@@ -9,6 +9,7 @@ interface Payload {
 }
 
 interface UserData {
+  userid: string;
   name: string;
   email: string;
   token: string;
@@ -16,6 +17,7 @@ interface UserData {
 }
 
 const initialState: UserData = {
+  userid: "",
   name: "",
   email: "",
   token: "",
@@ -30,7 +32,8 @@ export const sendLoginInfo: any = createAsyncThunk(
       payload
     );
     localStorage.setItem("token", response?.data?.token);
-    
+    localStorage.setItem("userid", response?.data?.userid);
+
     console.log(response);
     return response?.data;
   }
@@ -46,7 +49,8 @@ export const userSlice = createSlice({
         email: action.payload.email,
         name: action.payload.name,
         token: action.payload.token,
-        isLoggedIn: true,
+        isLoggedIn: false,
+        userid: action.payload.userid,
       };
     },
   },
@@ -55,6 +59,7 @@ export const userSlice = createSlice({
     builder.addCase(sendLoginInfo.fulfilled, (state, action: any) => {
       return {
         ...state,
+        userid: action.payload.userid,
         email: action.payload.email,
         name: action.payload.name,
         token: action.payload.token,

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AxiosError, AxiosRequestConfig } from "axios";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../api/axiosInstance";
 type RequestType = "get" | "post" | "put" | "delete";
@@ -22,7 +21,7 @@ export const useAxios = ({
   errorCallback,
   navPath,
 }: AxiosHookProps): [
-  (payload?: any, toastify?: boolean) => Promise<void>,
+  (payload?: any) => Promise<void>,
   boolean,
   AxiosError<any> | undefined
 ] => {
@@ -32,9 +31,7 @@ export const useAxios = ({
 
   const axiosRequest = async (
     payload?: any,
-    // toastify = false
   ): Promise<void> => {
-    // const toastLoading = toastify ? toast.loading("Please wait...") : "";
     setLoading(true);
     try {
       const res = await axiosInstance[reqType](
@@ -43,14 +40,6 @@ export const useAxios = ({
       );
 
       successCallback && successCallback();
-
-      // toast.update(toastLoading, {
-      //   render: `Account successfully created. You need to click the link in the email to activate your account!`,
-      //   type: "success",
-      //   isLoading: false,
-      //   autoClose: 3000,
-      //   className: "w-[500px]",
-      // });
 
       if (endpoint === "signup") {
         localStorage.setItem("token", res.data.token);
@@ -61,12 +50,6 @@ export const useAxios = ({
       }
       return res.data;
     } catch (err: any) {
-      // toast.update(toastLoading, {
-      //   render: `Your account could not be created. Please try again.`,
-      //   type: "error",
-      //   isLoading: false,
-      //   autoClose: 1000,
-      // });
 
       setError(err);
       errorCallback && errorCallback();

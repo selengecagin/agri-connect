@@ -2,7 +2,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../index.css";
 import SearchBar from "./SearchBar";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { useState } from "react";
 import { setUser } from "../../redux/userSlice";
 
 export default function Header() {
@@ -12,13 +11,16 @@ export default function Header() {
 
   function deleteToken(): void {
     localStorage.removeItem("token");
-    navigate("/");
-    dispatch(setUser({ name: "", email: "", token: "", isLoggedIn: false }));
+    dispatch(setUser({ name: "", email: "", token: "", isLoggedIn: false ,userid:""}));
+    console.log("User logged out:", userInfo); // Log userInfo for debugging
+    navigate("/"); // Move navigate here to ensure it runs after state update
   }
+
 
   return (
     <header className="flex">
       <nav className="flex flex-row justify-between px-[5%] h-14 bg-white items-center w-full">
+
         <div className="text-xl">
           <Link
             to="/harvest-over-crop"
@@ -52,17 +54,26 @@ export default function Header() {
           </NavLink>
         </div>
 
+
         <div>
           <SearchBar />
         </div>
-        <div className="hidden lg:flex lg:gap-6 text-primaryColor items-center">
+
+
+        <div className="flex items-center">
           {userInfo.isLoggedIn ? (
             <div className="flex items-center justify-center gap-2.5">
+              
               <div>
                 <span>{userInfo.name}</span>
               </div>
-              <div>
-                <ul className="flex flex-col gap-2 items-start whitespace-nowrap">
+<button>
+
+
+
+</button>
+              <div className="flex mt-20">
+                <ul className="flex flex-col gap-2 items-start">
                   <li className="cursor-pointer">
                     <Link to="/profile-page">Profile</Link>
                   </li>

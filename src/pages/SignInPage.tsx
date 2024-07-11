@@ -25,15 +25,16 @@ const SignInPage = () => {
   const onSubmit = (data: FormData) => {
     dispatch(sendLoginInfo({ ...data }))
       .unwrap()
-      .then(() => {
-     location.state ? navigate(location.state.pathname) : navigate("/");
+      .then((userId: string) => {
+        location.state ? navigate(location.state.pathname) : navigate("/");
         navigate("/");
-        console.log(location.state);
+        localStorage.setItem("token", userId);
       })
       .catch((error: any) => {
         console.log(error);
       });
   };
+
   return (
     <section
       id="singin-form"
@@ -43,7 +44,6 @@ const SignInPage = () => {
         className="mx-auto w-full max-w-xl bg-white pt-16 pb-10"
         onSubmit={handleSubmit(onSubmit)}
       >
-
         <div className="mb-5 relative">
           <label className="mb-3 block text-base font-medium text-[#07074D]">
             Email Address
