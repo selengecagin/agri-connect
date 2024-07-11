@@ -1,75 +1,61 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { AxiosResponse } from 'axios';
-import { RootState } from './store';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from '../api/axiosInstance';
+import { RootState, AppDispatch } from './store';
 
-// Tipi burada tanımlayın ve dışa aktarın
-export interface ForumCard {
-    id: number;
+interface Question {
+    questionId: string;
     title: string;
-    content: string;
-    votes: number;
-    answers: number;
-    views: number;
-    tags: string[];
-    username: string;
-    timestamp: string;
+    body: string;
+    userId: string;
+    favoriteCount: number;
+    likeCount: number;
+    commentCount: number;
+    categoryTags: string[];
+    imageIds: string[];
 }
 
 interface ForumCardState {
-    data: ForumCard[];
-    page: number;
+    questions: Question[];
     loading: boolean;
-    hasMore: boolean;
     error: string | null;
 }
 
 const initialState: ForumCardState = {
-    data: [],
-    page: 1,
+    questions: [],
     loading: false,
-    hasMore: true,
     error: null,
 };
 
-export const fetchForumData = createAsyncThunk<
-    ForumCard[],
-    number,
-    { state: RootState }
->(
-    'forumCard/fetchForumData',
-    async (page: number) => {
-        const response: AxiosResponse<ForumCard[]> = await axiosInstance.get(`/api/forum?page=${page}`);
-        return response.data;
+export const fetchQuestions = createAsyncThunk<Question[], void, { rejectValue: string }>(
+    'forumCard/fetchQuestions',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.get('/api/questions');
+            return response.data;
+        } catch (error: any) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 
 const forumCardSlice = createSlice({
     name: 'forumCard',
     initialState,
-    reducers: {
-        incrementPage(state) {
-            state.page += 1;
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchForumData.pending, (state) => {
+            .addCase(fetchQuestions.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
-            .addCase(fetchForumData.fulfilled, (state, action: PayloadAction<ForumCard[]>) => {
-                state.data.push(...action.payload);
+            .addCase(fetchQuestions.fulfilled, (state, action: PayloadAction<Question[]>) => {
                 state.loading = false;
-                state.hasMore = action.payload.length > 0;
+                state.questions = action.payload;
             })
-            .addCase(fetchForumData.rejected, (state, action) => {
+            .addCase(fetchQuestions.rejected, (state, action: PayloadAction<string | undefined>) => {
                 state.loading = false;
-                state.error = action.error.message || 'Failed to fetch data';
+                state.error = action.payload || 'Failed to fetch questions';
             });
-    },
+    }
 });
-
-export const { incrementPage } = forumCardSlice.actions;
 
 export default forumCardSlice.reducer;

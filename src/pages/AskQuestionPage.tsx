@@ -1,41 +1,47 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { setTitle, setBody, setTags, setFile, askQuestionStart, askQuestionSuccess, askQuestionFailure } from '../redux/askQuestionSlice';
+import axios from 'axios';
 import { axiosInstance } from '../api/axiosInstance';
 import '../stylesheets/AskQuestionPage.css';
 
-export default function AskQuestionPage() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const dispatch = useDispatch();
-    const { title, body, tags, file, status, error } = useSelector((state: RootState) => state.askQuestion);
+interface QuestionFormInputs {
+    title: string;
+    body: string;
+    tags: string[];
+    file?: File;
+}
+
+const AskQuestionPage: React.FC = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<QuestionFormInputs>();
+    const [file, setFile] = useState<File | null>(null);
+    const [tags, setTags] = useState<string[]>([]);
     const [tagInput, setTagInput] = useState('');
 
-    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        dispatch(askQuestionStart());
-
+    const onSubmit: SubmitHandler<QuestionFormInputs> = async (data) => {
         const formData = new FormData();
         formData.append('title', data.title);
         formData.append('body', data.body);
-        formData.append('tags', JSON.stringify(tags));
+        formData.append('userId', 'example-user-id'); // Replace with actual user ID from context or state
+        tags.forEach(tag => formData.append('tags', tag));
         if (file) {
             formData.append('file', file);
         }
 
         try {
-            await axiosInstance.post('/api/questions', formData);
-            dispatch(askQuestionSuccess());
-            alert('Question posted successfully');
-        } catch (error: any) {
-            dispatch(askQuestionFailure(error.message));
-            alert('Failed to post question');
+            const response = await axiosInstance.post('/api/questions/create', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('Question created:', response.data);
+        } catch (error) {
+            console.error('Failed to create question:', error);
         }
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
-            dispatch(setFile(event.target.files[0]));
+            setFile(event.target.files[0]);
         }
     };
 
@@ -47,14 +53,14 @@ export default function AskQuestionPage() {
         if (event.key === ' ') {
             event.preventDefault();
             if (tagInput.trim() && !tags.includes(tagInput.trim())) {
-                dispatch(setTags([...tags, tagInput.trim()]));
+                setTags([...tags, tagInput.trim()]);
                 setTagInput('');
             }
         }
     };
 
     const removeTag = (tag: string) => {
-        dispatch(setTags(tags.filter(t => t !== tag)));
+        setTags(tags.filter(t => t !== tag));
     };
 
     return (
@@ -74,8 +80,6 @@ export default function AskQuestionPage() {
                             id="title"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                             {...register('title', { required: 'Please enter a title.' })}
-                            value={title}
-                            onChange={(e) => dispatch(setTitle(e.target.value))}
                         />
                         {errors.title && <p className="text-red-500">{errors.title.message}</p>}
                     </div>
@@ -90,9 +94,7 @@ export default function AskQuestionPage() {
                         <textarea
                             id="body"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 h-48"
-                            {...register('body', { required: 'Please enter the body of your question.' })}
-                            value={body}
-                            onChange={(e) => dispatch(setBody(e.target.value))}
+                            {...register('body', { required: 'Please enter the body of your question.', minLength: 220 })}
                         ></textarea>
                         {errors.body && <p className="text-red-500">{errors.body.message}</p>}
                     </div>
@@ -107,9 +109,9 @@ export default function AskQuestionPage() {
                         <div className="flex flex-wrap items-center border border-gray-300 rounded-md shadow-sm p-2">
                             {tags.map((tag, index) => (
                                 <span key={index} className="tag bg-blue-200 text-blue-700 px-2 py-1 rounded-full mr-2 mb-2 flex items-center">
-                  {tag}
+                                    {tag}
                                     <button type="button" className="ml-1 text-red-500" onClick={() => removeTag(tag)}>x</button>
-                </span>
+                                </span>
                             ))}
                             <input
                                 type="text"
@@ -140,7 +142,6 @@ export default function AskQuestionPage() {
                         <button
                             type="submit"
                             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                            disabled={status === 'loading'}
                         >
                             Post your question
                         </button>
@@ -152,8 +153,9 @@ export default function AskQuestionPage() {
                         </button>
                     </div>
                 </form>
-                {status === 'failed' && <p className="text-red-500">{error}</p>}
             </div>
         </div>
     );
-}
+};
+
+export default AskQuestionPage;

@@ -1,39 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from '../redux/store';
+import { fetchQuestions } from '../redux/forumCardSlice';
 import ForumCard from '../assets/components/ForumCard';
-import AdArea from '../assets/components/AdArea';
-import { useForumData } from '../hooks/useForumData';
 
 const HarvestOverCrop: React.FC = () => {
-  const { data, loading, error, hasMore, fetchMore } = useForumData();
+  const dispatch = useDispatch<AppDispatch>();
+  const { questions, loading, error } = useSelector((state: RootState) => state.forumCard);
+
+  useEffect(() => {
+    dispatch(fetchQuestions());
+  }, [dispatch]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-      <div className="main-container w-full">
-        <div className="flex flex-row justify-between px-[5%] py-16 bg-[#fafafa]">
-          <div className="scroll-container flex flex-col w-2/3 mx-3.5 py-4">
+      <div className="max-w-4xl mx-auto p-4">
+        <h1 className="text-2xl font-bold mb-4">Forum Questions</h1>
+        {questions.map((question) => (
             <ForumCard
-                data={data || []}
-                hasMore={hasMore}
-                fetchMoreData={fetchMore}
-                loading={loading}
-                error={error}
+                key={question.questionId}
+                questionId={question.questionId}
+                title={question.title}
+                body={question.body}
+                userId={question.userId}
+                favoriteCount={question.favoriteCount}
+                likeCount={question.likeCount}
+                commentCount={question.commentCount}
+                categoryTags={question.categoryTags}
+                imageIds={question.imageIds}
             />
-          </div>
-
-          <div className="flex flex-col w-1/3 mx-6 mt-4 p-6 justify-start gap-8">
-            <div className="flex flex-col gap-4 h-[450px] border rounded shadow-md p-4">
-              <h1 className="text-lg text-[#737373] font-bold">Recommended Contacts</h1>
-              <div className="flex flex-row gap-2">
-                <p>Icon</p>
-                <p>Username</p>
-              </div>
-            </div>
-            <div className="advertisementArea">
-              <AdArea />
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
   );
-}
+};
 
 export default HarvestOverCrop;

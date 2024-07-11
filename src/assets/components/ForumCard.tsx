@@ -1,89 +1,50 @@
 import React from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { ForumCard as ForumCardType } from '../../redux/forumCardSlice';
 
 interface ForumCardProps {
-    data: ForumCardType[];
-    hasMore: boolean;
-    fetchMoreData: () => void;
-    loading: boolean;
-    error: string | null;
+    questionId: string;
+    title: string;
+    body: string;
+    userId: string;
+    favoriteCount: number;
+    likeCount: number;
+    commentCount: number;
+    categoryTags: string[];
+    imageIds: string[];
 }
 
-const ForumCard: React.FC<ForumCardProps> = ({ data, hasMore, fetchMoreData, loading, error }) => {
-    if (loading) {
-        return <p>Loading...</p>;
-    }
-
-    if (error) {
-        return <p>Couldn't fetch data: {error}</p>;
-    }
-
-    if (!data || data.length === 0) {
-        return <p>No data available</p>;
-    }
-
+const ForumCard: React.FC<ForumCardProps> = ({
+                                                 questionId,
+                                                 title,
+                                                 body,
+                                                 userId,
+                                                 favoriteCount,
+                                                 likeCount,
+                                                 commentCount,
+                                                 categoryTags,
+                                                 imageIds
+                                             }) => {
     return (
-        <InfiniteScroll
-            dataLength={data.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
-            height={1000}
-            endMessage={
-                <p style={{ textAlign: 'center' }}>
-                    <b>Yay! You have seen it all</b>
-                </p>
-            }
-        >
-            {data.map((item) => (
-                <div
-                    className="flex flex-row border border-solid border-gray-200 py-4 m-4 p-2 rounded-lg shadow-lg"
-                    key={item.id}
-                >
-                    <div className="flex flex-col justify-start px-4 py-3 gap-1 w-[150px] items-end text-sm">
-                        <p>{item.votes} votes</p>
-                        <p>{item.answers} answers</p>
-                        <p>{item.views} views</p>
-                    </div>
-                    <div className="flex flex-col w-full px-4 py-2 justify-center gap-3">
-                        <div className="flex flex-col">
-                            <a
-                                className="text-lg text-blue-700 hover:text-blue-900"
-                                href="#"
-                            >
-                                {item.title}
-                            </a>
-                            <p className="line-clamp-2">
-                                {item.content}
-                            </p>
-                        </div>
-                        <div className="flex flex-row justify-between">
-                            <div className="flex flex-col justify-center gap-1">
-                                <div className="tag-container flex flex-row gap-2">
-                                    {item.tags.map((tag, idx) => (
-                                        <a
-                                            key={idx}
-                                            href={`https://example.com/tag/${tag}`}
-                                            className="px-[0.5rem] bg-gray-200 text-black text-sm lowercase text-center rounded hover:bg-gray-300"
-                                        >
-                                            {tag}
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="flex flex-row justify-between gap-2 text-sm">
-                                <a href="#" className="text-blue-700 hover:text-blue-900">
-                                    @{item.username}
-                                </a>
-                                <p>{item.timestamp}</p>
-                            </div>
-                        </div>
-                    </div>
+        <div className="forum-card bg-white border border-gray-300 rounded-lg shadow-md mb-4 p-4">
+            <h2 className="text-xl font-bold mb-2">{title}</h2>
+            <p className="text-gray-700 mb-4">{body}</p>
+            <div className="flex items-center justify-between mb-2">
+                <div>
+                    <span className="text-gray-500">Likes: {likeCount}</span>
+                    <span className="text-gray-500 ml-2">Favorites: {favoriteCount}</span>
+                    <span className="text-gray-500 ml-2">Comments: {commentCount}</span>
                 </div>
-            ))}
-        </InfiniteScroll>
+                <div className="flex">
+                    {categoryTags.map((tag, index) => (
+                        <span key={index} className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">{tag}</span>
+                    ))}
+                </div>
+            </div>
+            <div className="flex">
+                {imageIds.map((imageId, index) => (
+                    <img key={index} src={`http://localhost:8080/api/images/fileSystem/id/${imageId}`} alt={`image-${index}`} className="w-16 h-16 rounded mr-2" />
+                ))}
+            </div>
+        </div>
     );
 };
 

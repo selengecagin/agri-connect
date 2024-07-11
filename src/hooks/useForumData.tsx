@@ -1,27 +1,39 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../redux/store';
-import { fetchForumData, incrementPage, ForumCard } from '../redux/forumCardSlice';
+import { useState, useEffect, useCallback } from 'react';
+import { axiosInstance } from '../api/axiosInstance';
 
-export const useForumData = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const { data, page, loading, hasMore, error } = useSelector((state: RootState) => state.forumCard);
+interface Question {
+    questionId: string;
+    title: string;
+    body: string;
+    userId: string;
+    favoriteCount: number;
+    likeCount: number;
+    commentCount: number;
+    categoryTags: string[];
+    imageIds: string[];
+}
+
+const useFetchForumData = () => {
+    const [questions, setQuestions] = useState<Question[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const fetchQuestions = useCallback(async () => {
+        try {
+            const response = await axiosInstance.get('/api/questions');
+            setQuestions(response.data);
+            setLoading(false);
+        } catch (err) {
+            setError('Failed to fetch questions');
+            setLoading(false);
+        }
+    }, []);
 
     useEffect(() => {
-        dispatch(fetchForumData(page));
-    }, [dispatch, page]);
+        fetchQuestions();
+    }, [fetchQuestions]);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 100 || loading) return;
-            if (hasMore) {
-                dispatch(incrementPage());
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [loading, hasMore, dispatch]);
-
-    return { data, loading, error, hasMore, fetchMore: () => dispatch(incrementPage()) };
+    return { questions, loading, error };
 };
+
+export default useFetchForumData;
