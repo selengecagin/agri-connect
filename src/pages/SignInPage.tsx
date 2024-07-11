@@ -2,7 +2,6 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sendLoginInfo } from "../redux/userSlice";
 import { useAppDispatch } from "../redux/store";
@@ -27,26 +26,31 @@ const SignInPage = () => {
     dispatch(sendLoginInfo({ ...data }))
       .unwrap()
       .then(() => {
-        toast.success("Successfully logged in");
-        location.state ? navigate(location.state.pathname) : navigate("/");
+     location.state ? navigate(location.state.pathname) : navigate("/");
+        navigate("/");
+        console.log(location.state);
       })
-      .catch((error:any) => {
-        toast.error("Login failed");
+      .catch((error: any) => {
         console.log(error);
       });
   };
+  
   return (
     <section
       id="singin-form"
-      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col items-center justify-center  p-12 "
     >
-      <form className="mx-auto w-full max-w-xl bg-white pt-16 pb-10">
+      <form
+        className="mx-auto w-full max-w-xl bg-white pt-16 pb-10"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+
         <div className="mb-5 relative">
           <label className="mb-3 block text-base font-medium text-[#07074D]">
             Email Address
             <input
               type="email"
+              id="sign-in-email"
               {...register("email", {
                 required: "Email is required",
                 validate: (val: any) => {
@@ -65,6 +69,7 @@ const SignInPage = () => {
               } focus:shadow-md `}
             />
           </label>
+
           {errors.email && (
             <p role="alert" className="text-red-400 absolute top-0 right-0">
               {errors.email.message}
@@ -76,6 +81,7 @@ const SignInPage = () => {
             Password
             <input
               type={hidePassword ? "password" : "text"}
+              id="sign-in-password"
               {...register("password")}
               placeholder="Enter Password"
               className={`w-full rounded-md border  bg-white py-3 px-6 mt-2 text-base font-medium text-[#6B7280] outline-none focus:border-sky-500 border-[#e0e0e0] focus:shadow-md `}
@@ -89,7 +95,7 @@ const SignInPage = () => {
         </div>
 
         <button
-          className={`hover:bg-blue-700 w-full rounded-md bg-blue-700 py-3 px-8 text-center text-base font-semibold text-white outline-none`}
+          className={`hover:bg-green-700 w-full rounded-md bg-green-800 py-3 px-8 text-center text-base font-semibold text-white outline-none`}
         >
           LOGIN
         </button>
