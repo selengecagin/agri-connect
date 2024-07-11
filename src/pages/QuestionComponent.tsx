@@ -276,5 +276,4 @@ const AgriConnectComponent: React.FC = () => {
     </div>
   );
 };
-
-export default AgriConnectComponent;
+export default QuestionComponent;
