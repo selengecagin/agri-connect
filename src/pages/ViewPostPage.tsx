@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import useFetchPostData from '../hooks/useFetchPostData';
-import '../stylesheets/ViewPostPage.css';
 
 const ViewPostPage: React.FC = () => {
     const { postId } = useParams<{ postId: string }>();

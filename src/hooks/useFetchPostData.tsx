@@ -27,7 +27,7 @@ const useFetchPostData = (postId: string) => {
 
     const fetchImagePath = async (imageId: string): Promise<string> => {
         try {
-            const response = await axiosInstance.get(`/api/images/fileSystem/id/${imageId}`);
+            const response = await axiosInstance.get(`/images/fileSystem/id/${imageId}`);
             return response.data.path; // Assuming the response contains the path in the "path" field
         } catch (error) {
             console.error("Failed to fetch image path", error);
@@ -37,7 +37,7 @@ const useFetchPostData = (postId: string) => {
 
     const fetchPost = useCallback(async () => {
         try {
-            const response = await axiosInstance.get(`/api/posts/${postId}`);
+            const response = await axiosInstance.get(`/posts/${postId}`);
             const post: Post = response.data;
             const images = await Promise.all(post.imageIds.map((id: string) => fetchImagePath(id)));
 
