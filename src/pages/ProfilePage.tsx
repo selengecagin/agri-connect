@@ -32,7 +32,7 @@ const ProfilePage: React.FC = () => {
                     <div key={post.postId}>
                         {post.imageIds.map((imageId) => {
                             const imageUrl = `http://localhost:8080/api/images/fileSystem/id/${imageId}`;
-                            const imageHref = `http://localhost:8080/api/images/fileSystem/id/${post.postId}`;
+                            const imageHref = `http://localhost:8080/post/${post.postId}`;
                             return (
                                 <a href={imageHref}>
                                     <img

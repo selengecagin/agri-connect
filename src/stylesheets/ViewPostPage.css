@@ -1,0 +1,29 @@
+.view-post-page {
+    padding: 20px;
+}
+
+.post-images {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.post-owner {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.post-owner img {
+    margin-right: 10px;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.comment img {
+    margin-right: 10px;
+}

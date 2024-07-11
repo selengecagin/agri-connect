@@ -1,62 +1,59 @@
-import { useState, useEffect, useCallback } from 'react';
-import { axiosInstance } from '../api/axiosInstance';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 interface Post {
     postId: string;
     userId: string;
     title: string;
     content: string;
-    favoriteCount: number;
-    likeCount: number;
-    commentCount: number;
-    categoryTags: string[];
     imageIds: string[];
-    commentIds: string[];
-    createdAt: string;
-    updatedAt: string;
-    isPrivate: boolean;
-    location: string;
-    shareCount: number;
-    images?: string[]; // Adding this for the fetched paths
 }
 
-const useFetchPostData = (postId: string) => {
-    const [post, setPost] = useState<Post | null>(null);
+interface User {
+    userId: string;
+    name: string;
+    profilePhotoId: string;
+}
+
+interface Comment {
+    commentId: string;
+    userId: string;
+    content: string;
+}
+
+interface PostData {
+    post: Post;
+    user: User;
+    comments: Comment[];
+}
+
+export const useFetchPostData = (postId: string) => {
+    const [data, setData] = useState<PostData | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchImagePath = async (imageId: string): Promise<string> => {
-        try {
-            const response = await axiosInstance.get(`/images/fileSystem/id/${imageId}`);
-            return response.data.path; // Assuming the response contains the path in the "path" field
-        } catch (error) {
-            console.error("Failed to fetch image path", error);
-            return "";
-        }
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const postResponse = await axios.get(`/api/posts/${postId}`);
+                const post = postResponse.data;
 
-    const fetchPost = useCallback(async () => {
-        try {
-            const response = await axiosInstance.get(`/posts/${postId}`);
-            const post: Post = response.data;
-            const images = await Promise.all(post.imageIds.map((id: string) => fetchImagePath(id)));
+                const userResponse = await axios.get(`/api/users/${post.userId}`);
+                const user = userResponse.data;
 
-            setPost({
-                ...post,
-                images,
-            });
-            setLoading(false);
-        } catch (err) {
-            setError('Failed to fetch post data');
-            setLoading(false);
-        }
+                const commentsResponse = await axios.get(`/api/comments/post/${postId}`);
+                const comments = commentsResponse.data;
+
+                setData({ post, user, comments });
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
     }, [postId]);
 
-    useEffect(() => {
-        fetchPost();
-    }, [fetchPost]);
-
-    return { post, loading, error };
+    return { data, loading, error };
 };
-
-export default useFetchPostData;
