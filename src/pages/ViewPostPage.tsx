@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetchPosts from '../hooks/useFetchPosts';
 import PostComponent from '../assets/components/PostComponent';
-import '../stylesheets/ViewPostPage.css';
 
 const ViewPostPage: React.FC = () => {
     const navigate = useNavigate();

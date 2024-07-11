@@ -25,10 +25,17 @@ const useFetchPosts = () => {
     const [error, setError] = useState<string | null>(null);
     const [hasMore, setHasMore] = useState<boolean>(true);
 
-    const fetchPosts = useCallback(async () => {
+    const fetchPosts = useCallback(async (offset = 0) => {
+        setLoading(true);
         try {
-            const response = await axiosInstance.get('/api/posts');
-            setPosts(response.data);
+            const response = await axiosInstance.get('/posts', {
+                params: { offset }
+            });
+            if (response.data.length === 0) {
+                setHasMore(false);
+            } else {
+                setPosts((prevPosts) => [...prevPosts, ...response.data]);
+            }
             setLoading(false);
         } catch (err) {
             setError('Failed to fetch posts');
@@ -36,24 +43,11 @@ const useFetchPosts = () => {
         }
     }, []);
 
-    const fetchMoreData = useCallback(async () => {
-        try {
-            const response = await axiosInstance.get(`/api/posts?offset=${posts.length}`);
-            if (response.data.length === 0) {
-                setHasMore(false);
-                return;
-            }
-            setPosts((prevPosts) => [...prevPosts, ...response.data]);
-        } catch (err) {
-            setError('Failed to fetch more posts');
-        }
-    }, [posts.length]);
-
     useEffect(() => {
         fetchPosts();
     }, [fetchPosts]);
 
-    return { posts, loading, error, fetchMoreData, hasMore };
+    return { posts, loading, error, fetchMoreData: () => fetchPosts(posts.length), hasMore };
 };
 
 export default useFetchPosts;
