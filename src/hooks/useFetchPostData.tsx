@@ -12,14 +12,14 @@ interface Post {
 interface User {
     userId: string;
     name: string;
-    profilePhotoId: string;
+    profilePhotoId?: string;
 }
 
 interface Comment {
     commentId: string;
     userId: string;
     content: string;
-    profilePhotoId: string;
+    profilePhotoId?: string;
 }
 
 interface Image {
@@ -34,12 +34,14 @@ interface PostData {
     user: User;
     comments: Comment[];
     images: Image[];
+    userProfileImage?: Image;
+    commentUserImages: { [key: string]: Image };
 }
 
 const fetchImage = async (imageId: string): Promise<Image> => {
     try {
         const response = await axios.get(`/api/images/fileSystem/id/${imageId}`);
-        return response.data; // assuming the response contains the full image object
+        return response.data;
     } catch (err) {
         console.error(`Failed to fetch image with id ${imageId}`, err);
         return { imageId, name: '', type: '', filePath: '' };
@@ -55,23 +57,30 @@ export const useFetchPostData = (postId: string) => {
         const fetchData = async () => {
             try {
                 const postResponse = await axios.get(`/api/posts/${postId}`);
-                const post = postResponse.data;
+                const post: Post = postResponse.data;
 
                 const userResponse = await axios.get(`/api/users/${post.userId}`);
-                const user = userResponse.data;
+                const user: User = userResponse.data;
 
                 const commentsResponse = await axios.get(`/api/comments/post/${postId}`);
-                const comments = commentsResponse.data;
+                const comments: Comment[] = commentsResponse.data;
 
                 const images = await Promise.all(post.imageIds.map(fetchImage));
-                user.profilePhotoId = await fetchImage(user.profilePhotoId);
-                await Promise.all(comments.map(async (comment) => {
-                    const userResponse = await axios.get(`/api/users/${comment.userId}`);
-                    const commentUser = userResponse.data;
-                    comment.profilePhotoId = await fetchImage(commentUser.profilePhotoId);
-                }));
+                let userProfileImage: Image | undefined;
+                if (user.profilePhotoId) {
+                    userProfileImage = await fetchImage(user.profilePhotoId);
+                }
 
-                setData({ post, user, comments, images });
+                const commentUserImages: { [key: string]: Image } = {};
+                for (const comment of comments) {
+                    const commentUserResponse = await axios.get(`/api/users/${comment.userId}`);
+                    const commentUser: User = commentUserResponse.data;
+                    if (commentUser.profilePhotoId) {
+                        commentUserImages[comment.userId] = await fetchImage(commentUser.profilePhotoId);
+                    }
+                }
+
+                setData({ post, user, comments, images, userProfileImage, commentUserImages });
             } catch (err) {
                 setError(err.message);
             } finally {
