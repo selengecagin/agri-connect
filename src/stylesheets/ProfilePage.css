@@ -1,46 +1,28 @@
-.profile-page-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
 .profile-header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
-.profile-picture {
-    width: 150px;
-    height: 150px;
+.profile-header img {
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
-    margin-right: 20px;
+    margin-right: 16px;
 }
 
-.profile-info {
-    flex: 1;
-}
-
-.profile-name {
+.profile-header h1 {
     font-size: 24px;
     font-weight: bold;
 }
 
-.profile-location,
-.profile-bio {
-    font-size: 16px;
-    color: #555;
+.profile-header p {
+    color: #4a4a4a;
 }
 
-.profile-posts {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-}
-
-.profile-post-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
+.grid img {
     border-radius: 8px;
+    width: 100%;
+    height: 192px;
+    object-fit: cover;
 }
