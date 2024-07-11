@@ -66,11 +66,11 @@ export default function Header() {
             </div>
           ) : (
             <div className="flex gap-2 text-primaryColor">
-              <Link to="/signin" className="text-primaryColor">
+              <Link to="/signin" className="text-green-700">
                 Login
               </Link>
-              <p className="text-primaryColor">/</p>
-              <Link to="/signup" className="text-primaryColor">
+              <p className="text-primaryColor">|</p>
+              <Link to="/signup" className="text-green-700">
                 Register
               </Link>
             </div>
