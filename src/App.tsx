@@ -10,19 +10,14 @@ import AskQuestionPage from "./pages/AskQuestionPage.tsx";
 import CreatePostPage from "./pages/CreatePostPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import ProfileSettingsPage from "./pages/ProfileSettingsPage.tsx";
-import ViewPostPage from "./pages/ViewPostPage.tsx";
-
+import AboutUs from "./pages/AboutUs.tsx";
 
 function App() {
   return (
     <>
       <Header />
-
       <Routes>
-        {/* <Route path="/" element={<HomePage />}></Route> */}
-        {/* <Route path="/harvest-over-crop" element={<HarvestOverCrop />}></Route> */}
-        {/* <Route path="/bazaar" element={<Bazaar />}></Route> */}
-
+        <Route path="/" element={<HarvestOverCrop />}></Route>
         <Route path="/create-post" element={<CreatePostPage />} />
         <Route path="/ask-question" element={<AskQuestionPage />} />
         <Route
@@ -34,15 +29,12 @@ function App() {
         <Route path="/signin" element={<SignInPage />}></Route>
         <Route path="/agri-connect" element={<HarvestOverCrop />}></Route>
         <Route path="/harvest-over-crop" element={<AgriConnect />}></Route>
-        <Route path="*" element={<h1>404 Not Found Pag</h1>} />
-
+        <Route path="/about-us" element={<AboutUs />}></Route>
+        <Route path="*" element={<h1>404 Not Found Page</h1>} />
       </Routes>
-
       <Footer />
     </>
   );
-}{
-
 }
 
 export default App;

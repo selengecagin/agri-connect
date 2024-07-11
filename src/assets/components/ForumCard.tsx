@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Link } from "react-router-dom";
 
 const PostComponent: React.FC = () => {
   const [items, setItems] = useState(Array.from({ length: 20 }));
@@ -42,12 +43,12 @@ const PostComponent: React.FC = () => {
             </div>
             <div className="flex flex-col w-full px-4 py-2 justify-center gap-3">
               <div className="flex- flex-col">
-                <a
-                  className="text-lg text-blue-700 hover:text-blue-900"
-                  href="#"
+                <Link
+                  className="text-lg text-green-700 hover:text-green-900"
+                  to="qa-create-page"
                 >
                   Question Title
-                </a>
+                </Link>
                 <p className="line-clamp-2">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -61,20 +62,17 @@ const PostComponent: React.FC = () => {
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col justify-center gap-1">
                   <div className="tag-container flex flex-row gap-2">
-                    <a
-                      href="https://example.com"
-                      className="px-[0.5rem] bg-gray-200 text-black text-sm lowercase text-center rounded hover:bg-gray-300"
-                    >
+                    <p className="px-[0.5rem] bg-gray-200 text-black text-sm lowercase text-center rounded hover:bg-gray-300">
                       crops
-                    </a>
+                    </p>
                   </div>
                 </div>
 
                 <div className="flex flex-row justify-between gap-2 text-sm">
-                  <a href="#" className="text-blue-700 hover:text-blue-900">
+                  <a href="#" className="text-gray-600 hover:text-gray-800">
                     @username
                   </a>
-                  <p>less than 1 minute ago</p>
+                  <p>11/06/2024</p>
                 </div>
               </div>
             </div>

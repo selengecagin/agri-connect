@@ -1,7 +1,7 @@
 import React from "react";
 import SocialMediaComponent from "./SocialMediaComponent";
-import {Link} from "react-router-dom";
-import AgriConnect from '../../pages/AgriConnect';
+import { Link } from "react-router-dom";
+import AgriConnect from "../../pages/AgriConnect";
 
 const footerData = [
   {
@@ -25,29 +25,12 @@ export default function Footer() {
 
       <section className="py-12 items-center px-[44px] sm:px-32 md:px-48">
         <div className="flex flex-col justify-between md:flex-row flex-wrap gap-8 md:gap-12 lg:gap-20">
-          {footerData.map((data, index) => {
-            return (
-              <div
-                className="flex flex-col items-start gap-5 min-w-0"
-                key={index}
-              >
-                <h5 className="text-[#252b42] text-base font-bold">
-                  {data.key}
-                </h5>
-                {data.opts.map((opt, index) => {
-                  return (
-                    <a
-                      href="#"
-                      className="text-[#737373] text-sm font-bold"
-                      key={index}
-                    >
-                      {opt}
-                    </a>
-                  );
-                })}
-              </div>
-            );
-          })}
+          <div className="flex flex-col items-start gap-5 min-w-0">
+            <h5 className="text-[#252b42] text-base font-bold"></h5>
+    
+            <Link to="/about-us" className="text-[#737373] text-sm font-bold"> About Us</Link>
+     
+          </div>
 
           <div className="flex flex-col items-start">
             <div className="mb-5">
@@ -59,7 +42,7 @@ export default function Footer() {
                 placeholder="Your Email"
                 className="px-4 py-4  rounded-l-md border border-solid border-[#e6e6e6] bg-[#f9f9f9]"
               />
-              <button className="bg-blue-700 text-white px-6 py-4 rounded-r-md items-center shrink-0 border border-solid border-blue-700">
+              <button className="bg-green-800 text-white px-6 py-4 rounded-r-md items-center shrink-0 border border-solid border-green-800">
                 Subscribe
               </button>
             </div>

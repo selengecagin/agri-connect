@@ -132,7 +132,7 @@ const PostComponent: React.FC = () => {
                     [item.id]: !prev[item.id],
                   }))
                 }
-                className="text-blue-600 text-sm mt-2"
+                className="text-[#4a4a4a] text-sm mt-2"
               >
                 View all {item.comments.length} comments
               </button>
@@ -157,7 +157,7 @@ const PostComponent: React.FC = () => {
                 />
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white p-2 rounded-r"
+                  className="bg-green-800 text-white p-2 rounded-r"
                 >
                   Post
                 </button>

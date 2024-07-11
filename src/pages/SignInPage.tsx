@@ -2,7 +2,6 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sendLoginInfo } from "../redux/userSlice";
 import { useAppDispatch } from "../redux/store";
@@ -27,21 +26,24 @@ const SignInPage = () => {
     dispatch(sendLoginInfo({ ...data }))
       .unwrap()
       .then(() => {
-        toast.success("Successfully logged in");
-        location.state ? navigate(location.state.pathname) : navigate("/");
+        //location.state ? navigate(location.state.pathname) : navigate("/");
+        navigate("/");
+        
+        console.log(location.state);
       })
-      .catch((error:any) => {
-        toast.error("Login failed");
+      .catch((error: any) => {
         console.log(error);
       });
   };
   return (
     <section
       id="singin-form"
-      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col items-center justify-center  p-12 "
     >
-      <form className="mx-auto w-full max-w-xl bg-white pt-16 pb-10">
+      <form
+        className="mx-auto w-full max-w-xl bg-white pt-16 pb-10"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="mb-5 relative">
           <label className="mb-3 block text-base font-medium text-[#07074D]">
             Email Address
@@ -89,7 +91,7 @@ const SignInPage = () => {
         </div>
 
         <button
-          className={`hover:bg-blue-700 w-full rounded-md bg-blue-700 py-3 px-8 text-center text-base font-semibold text-white outline-none`}
+          className={`hover:bg-green-700 w-full rounded-md bg-green-800 py-3 px-8 text-center text-base font-semibold text-white outline-none`}
         >
           LOGIN
         </button>

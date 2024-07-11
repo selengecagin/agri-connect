@@ -45,7 +45,7 @@ export default function AgriConnect() {
         <div className="side-container flex flex-col w-1/3 mx-6 mt-1.5 gap-8">
           <Link
             to="/ask-question"
-            className={`rounded-md items-center py-2 px-2 w-[125px] text-center text-white bg-blue-700 }`}
+            className={`rounded-md items-center py-2 px-2 w-[125px] text-center text-white bg-green-600 hover:bg-green-700 }`}
           >
             Ask Question
           </Link>
@@ -73,7 +73,7 @@ export default function AgriConnect() {
             </div>
 
             <a
-              className="text-blue-700 hover:text-blue-900 text-sm mt-2"
+              className="text-green-700 hover:text-green-900 text-sm mt-2"
               href="#"
             >
               more trending tags
@@ -98,7 +98,7 @@ export default function AgriConnect() {
                     />
                   </div>
                   <a
-                    className="text-blue-500 hover:text-blue-900 text-sm mt-0.5"
+                    className="text-[#737373] hover:text-[#4a4a4a]  text-sm mt-0.5"
                     href="#"
                   >
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed

@@ -1,57 +1,91 @@
-import {Link} from "react-router-dom";
-
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../index.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./SearchBar";
-
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { useState } from "react";
+import { setUser } from "../../redux/userSlice";
 
 export default function Header() {
+  const userInfo = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  function deleteToken(): void {
+    localStorage.removeItem("token");
+    navigate("/");
+    dispatch(setUser({ name: "", email: "", token: "", isLoggedIn: false }));
+  }
+
   return (
     <header className="flex">
-
       <nav className="flex flex-row justify-between px-[5%] h-14 bg-white items-center w-full">
-
         <div className="text-xl">
           <Link
             to="/harvest-over-crop"
-            className="text-blue-700 hover:text-blue-900 text-2xl font-bold"
+            className=" text-green-800 hover:text-green-900 text-4xl font-bold"
           >
             AgriConnect
           </Link>
         </div>
 
         <div className="flex flex-row gap-8">
-          <Link
-            to={"/agri-connect"}
-            className="text-[#737373] text-sm font-bold"
+          <NavLink
+            to="/agri-connect"
+            className={({ isActive }) =>
+              isActive
+                ? "text-[#4a4a4a] text-sm font-bold"
+                : "text-[#737373] text-sm font-bold"
+            }
           >
             AgriConnect
-          </Link>
+          </NavLink>
 
-          <Link
-            to={"/harvest-over-crop"}
-            className="text-[#737373] text-sm font-bold"
+          <NavLink
+            to="/harvest-over-crop"
+            className={({ isActive }) =>
+              isActive
+                ? "text-[#4a4a4a] text-sm font-bold"
+                : "text-[#737373] text-sm font-bold"
+            }
           >
             HarvestOverCrop
-          </Link>
+          </NavLink>
         </div>
 
         <div>
-          <SearchBar/>
+          <SearchBar />
         </div>
-
-        <div className="flex gap-2 text-blue-700 hover:text-blue-900 ">
-          <Link to="/profile">
-            <FontAwesomeIcon icon={faUser} style={{ color: "#1d4ed8" }} />
-          </Link>
-          <Link to="/signin" className="text-blue-700 hover:text-blue-900">
-            Login
-          </Link>
-          <p className="text-blue-700">|</p>
-          <Link to="/signup" className="text-blue-700 hover:text-blue-900">
-            Register
-          </Link>
+        <div className="hidden lg:flex lg:gap-6 text-primaryColor items-center">
+          {userInfo.isLoggedIn ? (
+            <div className="flex items-center justify-center gap-2.5">
+              <div>
+                <span>{userInfo.name}</span>
+              </div>
+              <div>
+                <ul className="flex flex-col gap-2 items-start whitespace-nowrap">
+                  <li className="cursor-pointer">
+                    <Link to="/profile-page">Profile</Link>
+                  </li>
+                  <li className="cursor-pointer">
+                    <Link to="/profile-settings">Profile Settings</Link>
+                  </li>
+                  <li className="cursor-pointer" onClick={deleteToken}>
+                    Sign Out
+                  </li>
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <div className="flex gap-2 text-primaryColor">
+              <Link to="/signin" className="text-primaryColor">
+                Login
+              </Link>
+              <p className="text-primaryColor">/</p>
+              <Link to="/signup" className="text-primaryColor">
+                Register
+              </Link>
+            </div>
+          )}
         </div>
       </nav>
     </header>
