@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const userProfile = {
-    name: "John Doe",
+    name: "John Doer",
     profilePicture: "https://via.placeholder.com/150", // Profil fotoğrafı için yer tutucu URL
 };
 
