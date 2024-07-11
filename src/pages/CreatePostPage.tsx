@@ -1,13 +1,15 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { setImage, setDescription } from '../redux/postSlice';
+import { setImage, setDescription, createPostStart, createPostSuccess, createPostFailure } from '../redux/createPostSlice';
 import { useNavigate } from 'react-router-dom';
+import { axiosInstance } from '../api/axiosInstance';
 
 const CreatePostPage: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { image, description } = useSelector((state: RootState) => state.post);
+    const { image, description, status, error } = useSelector((state: RootState) => state.createPost);
+    const userId = useSelector((state: RootState) => state.profile.userId);
 
     const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
@@ -23,14 +25,24 @@ const CreatePostPage: React.FC = () => {
         dispatch(setImage(null));
     };
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        // Post submission logic here
-        console.log({ image, description });
-        // Reset the form
-        dispatch(setImage(null));
-        dispatch(setDescription(''));
-        navigate('/');
+        dispatch(createPostStart());
+
+        const formData = new FormData();
+        formData.append('userId', userId);
+        formData.append('description', description);
+        if (image) {
+            formData.append('image', image);
+        }
+
+        try {
+            await axiosInstance.post('/api/posts', formData);
+            dispatch(createPostSuccess());
+            navigate('/');
+        } catch (error: any) {
+            dispatch(createPostFailure(error.message));
+        }
     };
 
     return (
@@ -76,9 +88,11 @@ const CreatePostPage: React.FC = () => {
                         <button
                             type="submit"
                             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                            disabled={status === 'loading'}
                         >
                             Postu Yolla
                         </button>
+                        {status === 'failed' && <p className="text-red-500">{error}</p>}
                     </div>
                 </div>
             </form>

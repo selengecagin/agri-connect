@@ -1,29 +1,41 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { setTitle, setBody, setTags, setFile, askQuestionStart, askQuestionSuccess, askQuestionFailure } from '../redux/askQuestionSlice';
+import { axiosInstance } from '../api/axiosInstance';
 import '../stylesheets/AskQuestionPage.css';
 
 export default function AskQuestionPage() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
-    const [file, setFile] = useState<File | null>(null);
-    const [tags, setTags] = useState<string[]>([]);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const dispatch = useDispatch();
+    const { title, body, tags, file, status, error } = useSelector((state: RootState) => state.askQuestion);
     const [tagInput, setTagInput] = useState('');
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        dispatch(askQuestionStart());
+
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('body', data.body);
+        formData.append('tags', JSON.stringify(tags));
         if (file) {
-            data.file = file;  // Form verilerine dosyayı ekleyin
+            formData.append('file', file);
         }
-        data.tags = tags;  // Form verilerine etiketleri ekleyin
-        console.log(data);
-        // Soru gönderme işlemleri burada yapılacak
+
+        try {
+            await axiosInstance.post('/api/questions', formData);
+            dispatch(askQuestionSuccess());
+            alert('Question posted successfully');
+        } catch (error: any) {
+            dispatch(askQuestionFailure(error.message));
+            alert('Failed to post question');
+        }
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
-            setFile(event.target.files[0]);
+            dispatch(setFile(event.target.files[0]));
         }
     };
 
@@ -35,14 +47,14 @@ export default function AskQuestionPage() {
         if (event.key === ' ') {
             event.preventDefault();
             if (tagInput.trim() && !tags.includes(tagInput.trim())) {
-                setTags([...tags, tagInput.trim()]);
+                dispatch(setTags([...tags, tagInput.trim()]));
                 setTagInput('');
             }
         }
     };
 
     const removeTag = (tag: string) => {
-        setTags(tags.filter(t => t !== tag));
+        dispatch(setTags(tags.filter(t => t !== tag)));
     };
 
     return (
@@ -62,6 +74,8 @@ export default function AskQuestionPage() {
                             id="title"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                             {...register('title', { required: 'Please enter a title.' })}
+                            value={title}
+                            onChange={(e) => dispatch(setTitle(e.target.value))}
                         />
                         {errors.title && <p className="text-red-500">{errors.title.message}</p>}
                     </div>
@@ -77,6 +91,8 @@ export default function AskQuestionPage() {
                             id="body"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 h-48"
                             {...register('body', { required: 'Please enter the body of your question.' })}
+                            value={body}
+                            onChange={(e) => dispatch(setBody(e.target.value))}
                         ></textarea>
                         {errors.body && <p className="text-red-500">{errors.body.message}</p>}
                     </div>
@@ -124,6 +140,7 @@ export default function AskQuestionPage() {
                         <button
                             type="submit"
                             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                            disabled={status === 'loading'}
                         >
                             Post your question
                         </button>
@@ -135,6 +152,7 @@ export default function AskQuestionPage() {
                         </button>
                     </div>
                 </form>
+                {status === 'failed' && <p className="text-red-500">{error}</p>}
             </div>
         </div>
     );

@@ -1,22 +1,47 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { updateProfile, updateProfileSuccess, updateProfileFailure } from '../redux/profileSlice';
 import '../stylesheets/ProfileSettingsPage.css';
+import { axiosInstance } from '../api/axiosInstance';
 
-export default function ProfileSettingsPage() {
+const ProfileSettingsPage: React.FC = () => {
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
     } = useForm();
+    const dispatch = useDispatch();
+    const profileStatus = useSelector((state: RootState) => state.profile.status);
+    const profileError = useSelector((state: RootState) => state.profile.error);
     const [file, setFile] = useState<File | null>(null);
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        const formData = new FormData();
+        formData.append('firstName', data.firstName);
+        formData.append('lastName', data.lastName);
+        formData.append('birthDate', data.birthDate);
+        formData.append('occupation', data.occupation);
+        formData.append('location', data.location);
+        formData.append('email', data.email);
+        formData.append('currentPassword', data.currentPassword);
+        formData.append('newPassword', data.newPassword);
+        formData.append('confirmNewPassword', data.confirmNewPassword);
         if (file) {
-            data.file = file;  // Form verilerine dosyayı ekleyin
+            formData.append('file', file);
         }
-        console.log(data);
-        // Profil güncelleme işlemleri burada yapılacak
+
+        dispatch(updateProfile(formData));
+        try {
+            await axiosInstance.post('/api/profile', formData);
+            dispatch(updateProfileSuccess());
+            alert('Profile saved successfully');
+        } catch (error) {
+            dispatch(updateProfileFailure(error.message));
+            alert('Failed to save profile');
+        }
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +55,6 @@ export default function ProfileSettingsPage() {
             <div className="profile-settings-page bg-[#fafafa] p-8">
                 <h1 className="text-2xl font-bold mb-4">Profile Settings</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
-
                     <div className="mb-4">
                         <label htmlFor="file" className="block text-lg font-medium text-gray-700">
                             Upload Your Profile Picture
@@ -51,7 +75,7 @@ export default function ProfileSettingsPage() {
                             type="text"
                             id="firstName"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            {...register('firstName', {required: 'Please enter your first name.'})}
+                            {...register('firstName', { required: 'Please enter your first name.' })}
                         />
                         {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
                     </div>
@@ -64,7 +88,7 @@ export default function ProfileSettingsPage() {
                             type="text"
                             id="lastName"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            {...register('lastName', {required: 'Please enter your last name.'})}
+                            {...register('lastName', { required: 'Please enter your last name.' })}
                         />
                         {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
                     </div>
@@ -77,7 +101,7 @@ export default function ProfileSettingsPage() {
                             type="date"
                             id="birthDate"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            {...register('birthDate', {required: 'Please enter your birth date.'})}
+                            {...register('birthDate', { required: 'Please enter your birth date.' })}
                         />
                         {errors.birthDate && <p className="text-red-500">{errors.birthDate.message}</p>}
                     </div>
@@ -90,7 +114,7 @@ export default function ProfileSettingsPage() {
                             type="text"
                             id="occupation"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            {...register('occupation', {required: 'Please enter your occupation.'})}
+                            {...register('occupation', { required: 'Please enter your occupation.' })}
                         />
                         {errors.occupation && <p className="text-red-500">{errors.occupation.message}</p>}
                     </div>
@@ -103,7 +127,7 @@ export default function ProfileSettingsPage() {
                             type="text"
                             id="location"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            {...register('location', {required: 'Please enter your location.'})}
+                            {...register('location', { required: 'Please enter your location.' })}
                         />
                         {errors.location && <p className="text-red-500">{errors.location.message}</p>}
                     </div>
@@ -116,7 +140,7 @@ export default function ProfileSettingsPage() {
                             type="email"
                             id="email"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            {...register('email', {required: 'Please enter your email.'})}
+                            {...register('email', { required: 'Please enter your email.' })}
                         />
                         {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                     </div>
@@ -129,7 +153,7 @@ export default function ProfileSettingsPage() {
                             type="password"
                             id="currentPassword"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            {...register('currentPassword', {required: 'Please enter your current password.'})}
+                            {...register('currentPassword', { required: 'Please enter your current password.' })}
                         />
                         {errors.currentPassword && <p className="text-red-500">{errors.currentPassword.message}</p>}
                     </div>
@@ -142,7 +166,7 @@ export default function ProfileSettingsPage() {
                             type="password"
                             id="newPassword"
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            {...register('newPassword', {required: 'Please enter your new password.'})}
+                            {...register('newPassword', { required: 'Please enter your new password.' })}
                         />
                         {errors.newPassword && <p className="text-red-500">{errors.newPassword.message}</p>}
                     </div>
@@ -160,8 +184,7 @@ export default function ProfileSettingsPage() {
                                 validate: (value) => value === watch('newPassword') || 'Passwords do not match.',
                             })}
                         />
-                        {errors.confirmNewPassword &&
-                            <p className="text-red-500">{errors.confirmNewPassword.message}</p>}
+                        {errors.confirmNewPassword && <p className="text-red-500">{errors.confirmNewPassword.message}</p>}
                     </div>
 
                     <div className="flex justify-between">
@@ -179,7 +202,12 @@ export default function ProfileSettingsPage() {
                         </button>
                     </div>
                 </form>
+                {profileStatus === 'loading' && <p>Loading...</p>}
+                {profileStatus === 'failed' && <p className="text-red-500">{profileError}</p>}
+                {profileStatus === 'succeeded' && <p className="text-green-500">Profile updated successfully!</p>}
             </div>
         </div>
     );
-}
+};
+
+export default ProfileSettingsPage;
