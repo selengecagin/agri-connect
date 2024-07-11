@@ -2,7 +2,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
- // Adjust the path to your actual search icon file
+// Adjust the path to your actual search icon file
 
 const SearchBar: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
@@ -11,10 +11,9 @@ const SearchBar: React.FC = () => {
   const searchHandler = () => {
     if (searchInput) {
       const filteredInput = searchInput.replace(/ /g, "+");
-      navigate(`/posts/?filter=${filteredInput}`);
+      navigate(`/posts/search?searchText=${filteredInput}`);
     }
   };
-
   return (
     <div className="relative">
       <input
@@ -22,7 +21,7 @@ const SearchBar: React.FC = () => {
         className="w-52 lg:w-full  rounded-md border bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none"
         onChange={(e) => setSearchInput(e.target.value)}
         onKeyDown={(e) => (e.key === "Enter" ? searchHandler() : () => {})}
-        placeholder="Search in Store"
+        placeholder="Search"
       />
       <FontAwesomeIcon
         icon={faSearch}

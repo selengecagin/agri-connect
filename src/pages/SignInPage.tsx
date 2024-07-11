@@ -69,10 +69,6 @@ const SignInPage = () => {
             />
           </label>
 
-
-
-
-
           {errors.email && (
             <p role="alert" className="text-red-400 absolute top-0 right-0">
               {errors.email.message}
