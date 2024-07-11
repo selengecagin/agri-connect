@@ -1,14 +1,22 @@
-// src/hooks/useFetchPosts.tsx
-
 import { useState, useEffect, useCallback } from 'react';
 import { axiosInstance } from '../api/axiosInstance';
 
 interface Post {
-    id: number;
+    postId: string;
+    userId: string;
     title: string;
     content: string;
-    author: string;
-    comments: string[];
+    favoriteCount: number;
+    likeCount: number;
+    commentCount: number;
+    categoryTags: string[];
+    imageIds: string[];
+    commentIds: string[];
+    isPrivate: boolean;
+    location: string;
+    shareCount: number;
+    createdAt: string;
+    updatedAt: string;
 }
 
 const useFetchPosts = () => {
@@ -19,7 +27,7 @@ const useFetchPosts = () => {
 
     const fetchPosts = useCallback(async () => {
         try {
-            const response = await axiosInstance.get('/posts');
+            const response = await axiosInstance.get('/api/posts');
             setPosts(response.data);
             setLoading(false);
         } catch (err) {
@@ -30,7 +38,7 @@ const useFetchPosts = () => {
 
     const fetchMoreData = useCallback(async () => {
         try {
-            const response = await axiosInstance.get(`/posts?offset=${posts.length}`);
+            const response = await axiosInstance.get(`/api/posts?offset=${posts.length}`);
             if (response.data.length === 0) {
                 setHasMore(false);
                 return;
