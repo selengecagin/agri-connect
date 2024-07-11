@@ -25,8 +25,8 @@ const useFetchUserData = (userId: string) => {
 
     const fetchUser = useCallback(async () => {
         try {
-            const userResponse = await axiosInstance.get(`/users/${userId}`);
-            const postResponse = await axiosInstance.get(`/posts/user/${userId}`);
+            const userResponse = await axiosInstance.get(`/users/668e8f125e4f4a1d0b3ff410`);
+            const postResponse = await axiosInstance.get(`/posts/user/668e8f125e4f4a1d0b3ff410`);
             setUser(userResponse.data);
             setPosts(postResponse.data);
             setLoading(false);
