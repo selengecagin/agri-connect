@@ -99,9 +99,7 @@ const SignUpPage = () => {
           )}
 
           <label className="inputLabel w-[450px]" htmlFor="password">
-            <p className="pb-2 text-lg font-normal">
-              Password
-            </p>
+            <p className="pb-2 text-lg font-normal">Password</p>
             <input
               type={hidePassword ? "password" : "text"}
               placeholder="Create a Password"
@@ -128,7 +126,7 @@ const SignUpPage = () => {
               })}
               className={`defaultInput ${
                 errors.password ? "inputWithError" : ""
-              } w-[450px] h-[50px] pl-3 items-start shrink-0 shadow-sm text-red-500`}
+              } w-[450px] h-[50px] pl-3 items-start shrink-0 shadow-sm text-neutral-500`}
             />
             <Icon
               icon={hidePassword ? "octicon:eye-closed-16" : "octicon:eye-16"}
@@ -137,11 +135,11 @@ const SignUpPage = () => {
             />
           </label>
           {errors.password && (
-            <p role="alert" className="formErrorMessage ">
+            <p  className="formErrorMessage text-red-500">
               {errors.password?.message}
             </p>
           )}
-
+          
           <label className="inputLabel w-[450px]" htmlFor="confirmPassword">
             <p className="pb-2 text-lg font-normal">Confirm Password</p>
             <input
@@ -157,11 +155,11 @@ const SignUpPage = () => {
               placeholder="Confirm Password"
               className={`defaultInput ${
                 errors.confirmPassword ? "inputWithError" : ""
-              } w-[450px] h-[50px] pl-3 shrink-0 shadow-sm text-red-500`}
+              } w-[450px] h-[50px] pl-3 shrink-0 shadow-sm text-neutral-500`}
             />
           </label>
           {errors.confirmPassword && (
-            <p role="alert" className="formErrorMessage">
+            <p role="alert" className="formErrorMessage text-red-600">
               {errors.confirmPassword.message}
             </p>
           )}

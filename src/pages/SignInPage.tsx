@@ -2,7 +2,6 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sendLoginInfo } from "../redux/userSlice";
 import { useAppDispatch } from "../redux/store";
