@@ -1,20 +1,13 @@
-import React from "react";
+
 import SocialMediaComponent from "./SocialMediaComponent";
 import { Link } from "react-router-dom";
-import AgriConnect from "../../pages/AgriConnect";
 
-const footerData = [
-  {
-    key: "Company Info",
-    opts: ["About", "Contact", "Privacy Policy", "Get In Touch"],
-  },
-];
 
 export default function Footer() {
   return (
     <footer className="flex flex-col w-full ">
-      <section className=" flex flex-col py-8 justify-start lg:flex-row  lg:justify-between lg:items-center lg:gap-[305px] px-[44px] sm:px-32 md:px-48">
-        <Link to="/" className="text-[#252b42] text-2xl font-bold pb-2.5">
+      <section className=" flex flex-col py-4 justify-start lg:flex-row  lg:justify-between lg:items-center lg:gap-[305px] px-[44px] sm:px-32 md:px-48">
+        <Link to="/" className="text-[#252b42] text-2xl font-bold ">
           AgriConnect
         </Link>
 
@@ -23,13 +16,19 @@ export default function Footer() {
         </div>
       </section>
 
-      <section className="py-12 items-center px-[44px] sm:px-32 md:px-48">
+      <section className="py-4 items-center px-[44px] sm:px-32 md:px-48">
         <div className="flex flex-col justify-between md:flex-row flex-wrap gap-8 md:gap-12 lg:gap-20">
           <div className="flex flex-col items-start gap-5 min-w-0">
             <h5 className="text-[#252b42] text-base font-bold"></h5>
-    
-            <Link to="/about-us" className="text-[#737373] text-sm font-bold"> About Us</Link>
-     
+
+            <Link to="/about-us" className="text-[#737373] text-sm font-bold">
+   
+              About Us
+            </Link>
+            <Link to="/privacy-policy" className="text-[#737373] text-sm font-bold">
+
+              Privacy
+            </Link>
           </div>
 
           <div className="flex flex-col items-start">

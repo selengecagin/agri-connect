@@ -45,7 +45,7 @@ const PostComponent: React.FC = () => {
               <div className="flex- flex-col">
                 <Link
                   className="text-lg text-green-700 hover:text-green-900"
-                  to="qa-create-page"
+                  to="qa-page"
                 >
                   Question Title
                 </Link>

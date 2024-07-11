@@ -7,13 +7,13 @@ export const axiosInstanceCreator = (): AxiosInstance => {
 
   return token
     ? axios.create({
-        baseURL: `http://172.16.99.112:8080/api/`,
+        baseURL: `http://localhost:8080/api/`,
         headers: {
           Authorization: token,
         },
       })
     : axios.create({
-        baseURL: `http://172.16.99.112:8080/api/`,
+        baseURL: `http://localhost:8080/api/`,
         headers: {},
       });
 };
