@@ -72,7 +72,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, comments: initialCo
             </div>
             {post.imageIds.length > 0 && (
                 <img
-                    src={`http://172.16.99.112:8080/api/images/${post.imageIds[0]}`}
+                    src={`https://via.placeholder.com/40`}
                     alt={`Post ${post.postId}`}
                     className="w-full"
                 />
