@@ -70,9 +70,9 @@ const PostComponent: React.FC<PostComponentProps> = ({ post, comments: initialCo
                 />
                 <span className="font-semibold">{post.userId}</span>
             </div>
-            {post.imageIds.length > 0 && (
+            {post.imageIds && post.imageIds.length > 0 && (
                 <img
-                    src={`https://via.placeholder.com/40`}
+                    src={`http://172.16.99.112:8080/api/images/${post.imageIds[0]}`}
                     alt={`Post ${post.postId}`}
                     className="w-full"
                 />
