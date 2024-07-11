@@ -30,7 +30,7 @@ export const fetchQuestions = createAsyncThunk<Question[], void, { rejectValue: 
     'forumCard/fetchQuestions',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axiosInstance.get('/api/questions');
+            const response = await axiosInstance.get('/questions');
             return response.data;
         } catch (error: any) {
             return rejectWithValue(error.response.data);

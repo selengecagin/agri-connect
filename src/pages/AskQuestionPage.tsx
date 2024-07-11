@@ -5,6 +5,7 @@ import { axiosInstance } from '../api/axiosInstance';
 import '../stylesheets/AskQuestionPage.css';
 
 interface QuestionFormInputs {
+    
     title: string;
     body: string;
     tags: string[];
@@ -19,16 +20,17 @@ const AskQuestionPage: React.FC = () => {
 
     const onSubmit: SubmitHandler<QuestionFormInputs> = async (data) => {
         const formData = new FormData();
+        
         formData.append('title', data.title);
         formData.append('body', data.body);
-        formData.append('userId', 'example-user-id'); // Replace with actual user ID from context or state
+        formData.append('userId', '668e8f125e4f4a1d0b3ff410'); // Replace with actual user ID from context or state
         tags.forEach(tag => formData.append('tags', tag));
         if (file) {
             formData.append('file', file);
         }
 
         try {
-            const response = await axiosInstance.post('/api/questions/create', formData, {
+            const response = await axiosInstance.post('/questions/create', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

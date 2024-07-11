@@ -30,14 +30,14 @@ const CreatePostPage: React.FC = () => {
         dispatch(createPostStart());
 
         const formData = new FormData();
-        formData.append('userId', userId);
-        formData.append('description', description);
+        formData.append('userId', "668e8f125e4f4a1d0b3ff410");
+        formData.append('content', description);
         if (image) {
             formData.append('image', image);
         }
 
         try {
-            await axiosInstance.post('/api/posts', formData);
+            await axiosInstance.post('/posts/create', formData);
             dispatch(createPostSuccess());
             navigate('/');
         } catch (error: any) {

@@ -19,7 +19,7 @@ const useFetchPosts = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axiosInstance.get(`/api/posts?page=${page}`);
+                const response = await axiosInstance.get(`/posts?page=${page}`);
                 const fetchedPosts: Post[] = response.data;
                 setPosts(prevPosts => [...prevPosts, ...fetchedPosts]);
                 setHasMore(fetchedPosts.length > 0);
