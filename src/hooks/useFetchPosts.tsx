@@ -28,7 +28,7 @@ const useFetchPosts = () => {
     const fetchPosts = useCallback(async (offset = 0) => {
         setLoading(true);
         try {
-            const response = await axiosInstance.get('/api/posts', {
+            const response = await axiosInstance.get('/posts/668c6b3561ec203033e3249a', {
                 params: { offset }
             });
             if (response.data.length === 0) {
