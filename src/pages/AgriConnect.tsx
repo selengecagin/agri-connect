@@ -12,7 +12,7 @@ const AgriConnect: React.FC = () => {
   if (error) return <div>{error}</div>;
 
   return (
-      <div className="mainConteiner w-full">
+      <div className="mainContainer w-full">
         <div className="flex flex-row justify-between px-[5%] py-12 bg-[#fafafa]">
           <div className="main-container flex w-2/3">
             <div className="flex flex-col w-full mx-3.5">

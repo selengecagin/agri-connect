@@ -1,22 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { axiosInstance } from '../api/axiosInstance';
 
 interface Post {
-    postId: string;
+    id: string;
     userId: string;
     title: string;
     content: string;
-    favoriteCount: number;
-    likeCount: number;
-    commentCount: number;
-    categoryTags: string[];
     imageIds: string[];
-    commentIds: string[];
-    isPrivate: boolean;
-    location: string;
-    shareCount: number;
-    createdAt: string;
-    updatedAt: string;
 }
 
 const useFetchPosts = () => {
@@ -24,30 +14,30 @@ const useFetchPosts = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [hasMore, setHasMore] = useState<boolean>(true);
-
-    const fetchPosts = useCallback(async (offset = 0) => {
-        setLoading(true);
-        try {
-            const response = await axiosInstance.get('/posts/668c6b3561ec203033e3249a', {
-                params: { offset }
-            });
-            if (response.data.length === 0) {
-                setHasMore(false);
-            } else {
-                setPosts((prevPosts) => [...prevPosts, ...response.data]);
-            }
-            setLoading(false);
-        } catch (err) {
-            setError('Failed to fetch posts');
-            setLoading(false);
-        }
-    }, []);
+    const [page, setPage] = useState<number>(1);
 
     useEffect(() => {
-        fetchPosts();
-    }, [fetchPosts]);
+        const fetchPosts = async () => {
+            try {
+                const response = await axiosInstance.get(`/api/posts?page=${page}`);
+                const fetchedPosts: Post[] = response.data;
+                setPosts(prevPosts => [...prevPosts, ...fetchedPosts]);
+                setHasMore(fetchedPosts.length > 0);
+                setLoading(false);
+            } catch (err) {
+                setError(err.message);
+                setLoading(false);
+            }
+        };
 
-    return { posts, loading, error, fetchMoreData: () => fetchPosts(posts.length), hasMore };
+        fetchPosts();
+    }, [page]);
+
+    const fetchMoreData = () => {
+        setPage(prevPage => prevPage + 1);
+    };
+
+    return { posts, loading, error, fetchMoreData, hasMore };
 };
 
 export default useFetchPosts;
