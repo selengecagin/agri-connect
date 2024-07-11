@@ -1,12 +1,32 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { setUser } from "../../redux/userSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 
 const UserDropdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const userInfo = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+
+    function deleteToken(): void {
+      localStorage.removeItem("token");
+      dispatch(
+        setUser({
+          name: "",
+          email: "",
+          token: "",
+          isLoggedIn: false,
+          userid: "",
+        })
+      );
+      console.log("User logged out:", userInfo); // Log userInfo for debugging
+      navigate("/"); // Move navigate here to ensure it runs after state update
+    }
 
   return (
     <div className="relative inline-block text-left">
@@ -19,7 +39,7 @@ const UserDropdown: React.FC = () => {
           aria-expanded="true"
           onClick={toggleDropdown}
         >
-          User Operations
+          Menu
           <svg
             className="-mr-1 ml-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -45,23 +65,24 @@ const UserDropdown: React.FC = () => {
         >
           <div className="py-1" role="none">
             <Link
-              to="/profile"
+              to="/profile-page"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
             >
               Profile
             </Link>
             <Link
-              to="/settings"
+              to="/profile-settings"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
             >
               Settings
             </Link>
             <Link
-              to="/logout"
+              to="/"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
+              onClick={deleteToken}
             >
               Logout
             </Link>

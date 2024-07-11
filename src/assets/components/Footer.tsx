@@ -1,14 +1,7 @@
-import React from "react";
+
 import SocialMediaComponent from "./SocialMediaComponent";
 import { Link } from "react-router-dom";
-import AgriConnect from "../../pages/AgriConnect";
 
-const footerData = [
-  {
-    key: "Company Info",
-    opts: ["About", "Contact", "Privacy Policy", "Get In Touch"],
-  },
-];
 
 export default function Footer() {
   return (

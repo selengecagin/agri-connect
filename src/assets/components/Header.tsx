@@ -62,24 +62,7 @@ export default function Header() {
         <div className="flex items-center">
           {userInfo.isLoggedIn ? (
             <div className="flex items-center justify-center gap-2.5">
-              <UserDropdown/>
-              <div>
-                <span>{userInfo.name}</span>
-              </div>
-              <button></button>
-              <div className="flex mt-20">
-                <ul className="flex flex-col gap-2 items-start">
-                  <li className="cursor-pointer">
-                    <Link to="/profile-page">Profile</Link>
-                  </li>
-                  <li className="cursor-pointer">
-                    <Link to="/profile-settings">Profile Settings</Link>
-                  </li>
-                  <li className="cursor-pointer" onClick={deleteToken}>
-                    Sign Out
-                  </li>
-                </ul>
-              </div>
+              <UserDropdown />
             </div>
           ) : (
             <div className="flex gap-2 text-primaryColor">
