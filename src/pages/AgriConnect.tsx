@@ -63,7 +63,7 @@ const AgriConnect: React.FC = () => {
 
           <div className="side-container flex flex-col w-1/3 mx-6 mt-1.5 gap-8">
             <a
-                href="#"
+                href="##"
                 className="rounded-md items-center py-2 px-2 w-[125px] text-center text-white bg-blue-700"
             >
               Ask Question
