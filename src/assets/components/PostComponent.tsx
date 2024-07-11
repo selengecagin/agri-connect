@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +15,7 @@ interface CommentFormInputs {
 
 const PostComponent: React.FC = () => {
   const [items, setItems] = useState<Post[]>(
+    
     Array.from({ length: 20 }, (_, index) => ({
       id: index,
       comments: Array.from(

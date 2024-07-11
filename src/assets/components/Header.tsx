@@ -2,7 +2,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../index.css";
 import SearchBar from "./SearchBar";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { useState } from "react";
 import { setUser } from "../../redux/userSlice";
 
 export default function Header() {
@@ -12,9 +11,11 @@ export default function Header() {
 
   function deleteToken(): void {
     localStorage.removeItem("token");
-    navigate("/");
-    dispatch(setUser({ name: "", email: "", token: "", isLoggedIn: false }));
+    dispatch(setUser({ name: "", email: "", token: "", isLoggedIn: false ,userid:""}));
+    console.log("User logged out:", userInfo); // Log userInfo for debugging
+    navigate("/"); // Move navigate here to ensure it runs after state update
   }
+
 
   return (
     <header className="flex">

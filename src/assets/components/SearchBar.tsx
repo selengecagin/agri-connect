@@ -14,6 +14,8 @@ const SearchBar: React.FC = () => {
       navigate(`/posts/search?searchText=${filteredInput}`);
     }
   };
+
+  
   return (
     <div className="relative">
       <input

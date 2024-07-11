@@ -5,7 +5,7 @@ const userProfile = {
     name: "John Doe",
     location: "New York, USA",
     bio: "Photographer & Traveler",
-    profilePicture: "https://via.placeholder.com/150", // Profil fotoğrafı için yer tutucu URL
+    profilePicture: "https://via.placeholder.com/150",
     posts: [
         "https://via.placeholder.com/150",
         "https://via.placeholder.com/150",
