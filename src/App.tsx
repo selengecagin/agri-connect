@@ -25,7 +25,7 @@ function App() {
                 <Route path="/create-post" element={<CreatePostPage />} />
                 <Route path="/ask-question" element={<AskQuestionPage />} />
                 <Route path="/profile-settings" element={<ProfileSettingsPage />} />
-                <Route path="/post" element={<ViewPostPage />} />
+                <Route path="/post/:postId" element={<ViewPostPage />} />
                 <Route path="/profile/:userId" element={<ProfilePage />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/signin" element={<SignInPage />} />
