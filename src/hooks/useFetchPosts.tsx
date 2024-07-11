@@ -1,43 +1,29 @@
 import { useState, useEffect } from 'react';
-import { axiosInstance } from '../api/axiosInstance';
-
-interface Post {
-    id: string;
-    userId: string;
-    title: string;
-    content: string;
-    imageIds: string[];
-}
+import axios from 'axios';
 
 const useFetchPosts = () => {
-    const [posts, setPosts] = useState<Post[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
-    const [hasMore, setHasMore] = useState<boolean>(true);
-    const [page, setPage] = useState<number>(1);
+  const [posts, setPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await axiosInstance.get(`/posts?page=${page}`);
-                const fetchedPosts: Post[] = response.data;
-                setPosts(prevPosts => [...prevPosts, ...fetchedPosts]);
-                setHasMore(fetchedPosts.length > 0);
-                setLoading(false);
-            } catch (err) {
-                setError(err.message);
-                setLoading(false);
-            }
-        };
+  const fetchMoreData = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/posts');
+      setPosts((prevPosts) => [...prevPosts, ...response.data]);
+      setHasMore(response.data.length > 0);
+      setLoading(false);
+    } catch (error) {
+      setError('Failed to fetch posts');
+      setLoading(false);
+    }
+  };
 
-        fetchPosts();
-    }, [page]);
+  useEffect(() => {
+    fetchMoreData();
+  }, []);
 
-    const fetchMoreData = () => {
-        setPage(prevPage => prevPage + 1);
-    };
-
-    return { posts, loading, error, fetchMoreData, hasMore };
+  return { posts, loading, error, fetchMoreData, hasMore };
 };
 
 export default useFetchPosts;

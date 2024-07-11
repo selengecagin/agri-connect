@@ -92,7 +92,7 @@ export const useFetchPostData = (postId: string) => {
                 }
 
                 setData({ post, user, comments, images, userProfileImage, commentUserImages });
-            } catch (err) {
+            } catch (err: any) {
                 console.error('Error fetching data:', err);  // Debugging
                 setError(err.message);
             } finally {
