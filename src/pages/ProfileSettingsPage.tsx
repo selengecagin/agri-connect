@@ -190,7 +190,7 @@ const ProfileSettingsPage: React.FC = () => {
                     <div className="flex justify-between">
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                            className="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800"
                         >
                             Save Changes
                         </button>
