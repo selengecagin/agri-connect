@@ -6,15 +6,14 @@ interface Post {
     userId: string;
     title: string;
     content: string;
-    imageIds: string[];
+    images: string[];
 }
 
 interface User {
     userId: string;
     name: string;
     bio: string;
-    profilePhotoId: string;
-    postIds: string[];
+    profilePhoto: string;
 }
 
 const useFetchUserData = (userId: string) => {
@@ -23,12 +22,28 @@ const useFetchUserData = (userId: string) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    const fetchImagePath = async (imageId: string): Promise<string> => {
+        const response = await axiosInstance.get(`/images/fileSystem/id/${imageId}`);
+        return response.data.path; // assuming the response contains the path in the "path" field
+    };
+
     const fetchUser = useCallback(async () => {
         try {
-            const userResponse = await axiosInstance.get(`/users/668e8f125e4f4a1d0b3ff410`);
-            const postResponse = await axiosInstance.get(`/posts/user/668e8f125e4f4a1d0b3ff410`);
-            setUser(userResponse.data);
-            setPosts(postResponse.data);
+            const userResponse = await axiosInstance.get(`/users/${userId}`);
+            const postResponse = await axiosInstance.get(`/posts/user/${userId}`);
+
+            const user = userResponse.data;
+            const profilePhoto = await fetchImagePath(user.profilePhotoId);
+            const posts = await Promise.all(postResponse.data.map(async (post: any) => ({
+                ...post,
+                images: await Promise.all(post.imageIds.map((id: string) => fetchImagePath(id))),
+            })));
+
+            setUser({
+                ...user,
+                profilePhoto,
+            });
+            setPosts(posts);
             setLoading(false);
         } catch (err) {
             setError('Failed to fetch user data');

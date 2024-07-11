@@ -1,33 +1,44 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import useFetchPosts from '../hooks/useFetchPosts';
-import PostComponent from '../assets/components/PostComponent';
+import { useParams } from 'react-router-dom';
+import useFetchUserData from '../hooks/useFetchUserData';
+import '../stylesheets/ProfilePage.css';
 
-const ViewPostPage: React.FC = () => {
-    const navigate = useNavigate();
-    const { posts, loading, error, fetchMoreData, hasMore } = useFetchPosts();
+const ProfilePage: React.FC = () => {
+    const { userId } = useParams<{ userId: string }>();
+    const { user, posts, loading, error } = useFetchUserData(userId!);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p className="text-red-500">{error}</p>;
+    if (!user) return <p>User not found</p>;
 
     return (
-        <div className="max-w-4xl mx-auto p-4 border border-gray-400 rounded">
-            <button
-                className="mb-4 px-4 py-2 bg-gray-200 rounded"
-                onClick={() => navigate(-1)}
-            >
-                &larr; Geri Dön
-            </button>
+        <div className="max-w-4xl mx-auto p-4">
+            <div className="profile-header flex items-center mb-4">
+                <img
+                    src={user.profilePhoto}
+                    alt="Profile"
+                    className="w-24 h-24 rounded-full mr-4"
+                />
+                <div>
+                    <h1 className="text-2xl font-bold">{user.name}</h1>
+                    <p className="text-gray-700">{user.bio}</p>
+                </div>
+            </div>
             <hr className="border-t border-gray-300 mb-4"/>
-            {loading && <p>Loading...</p>}
-            {error && <p className="text-red-500">{error}</p>}
-            {posts.map((post) => (
-                <PostComponent key={post.postId} post={post} comments={[]} />
-            ))}
-            {hasMore && (
-                <button onClick={fetchMoreData} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Load More
-                </button>
-            )}
+            <div className="grid grid-cols-3 gap-4">
+                {posts.map((post) => (
+                    post.images.map((image, index) => (
+                        <img
+                            key={index}
+                            src={image}
+                            alt={post.title}
+                            className="w-full h-48 object-cover rounded"
+                        />
+                    ))
+                ))}
+            </div>
         </div>
     );
 };
 
-export default ViewPostPage;
+export default ProfilePage;
