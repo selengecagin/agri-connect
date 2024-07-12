@@ -1,5 +1,3 @@
-// src/api/axiosInstance.tsx
-
 import axios, { AxiosInstance } from "axios";
 
 type Token = string | null;

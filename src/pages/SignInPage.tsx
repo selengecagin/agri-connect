@@ -25,10 +25,9 @@ const SignInPage = () => {
   const onSubmit = (data: FormData) => {
     dispatch(sendLoginInfo({ ...data }))
       .unwrap()
-      .then((userId: string) => {
+      .then(() => {
         location.state ? navigate(location.state.pathname) : navigate("/");
         navigate("/");
-        localStorage.setItem("token", userId);
       })
       .catch((error: any) => {
         console.log(error);

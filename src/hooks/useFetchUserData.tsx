@@ -26,7 +26,7 @@ interface Post {
     updatedAt: string;
 }
 
-interface User {
+export interface User {
     userId: string;
     name: string;
     bio: string;
@@ -44,7 +44,7 @@ const useFetchUserData = (userId: string) => {
     const fetchImage = async (imageId: string): Promise<Image> => {
         try {
             const response = await axiosInstance.get(`/images/fileSystem/id/${imageId}`);
-            return response.data; // assuming the response contains the full image object
+            return response.data;
         } catch (err) {
             console.error(`Failed to fetch image with id ${imageId}`, err);
             return { imageId, name: '', type: '', filePath: '' };

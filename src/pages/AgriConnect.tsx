@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const AgriConnect: React.FC = () => {
   const { posts, loading, error, fetchMoreData, hasMore } = useFetchPosts();
-  const sessionId = localStorage.getItem("userId");
+  const sessionId = localStorage.getItem("userid");
   console.log(sessionId);
   
 

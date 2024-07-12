@@ -10,8 +10,19 @@ const useFetchPosts = () => {
   const fetchMoreData = async () => {
     try {
       const response = await axios.get('http://localhost:8080/api/posts');
-      setPosts((prevPosts) => [...prevPosts, ...response.data]);
-      setHasMore(response.data.length > 0);
+      let posts = response.data.map(async (post: any) => {
+        try {
+          const user = await axios.get(`http://localhost:8080/api/users/${post.userId}`);
+          post.user = user.data;
+          return post;
+        } catch (_) {
+          return null;
+        }
+      });
+      posts = (await Promise.all(posts)).filter((post) => post !== null);
+      
+      setPosts((prevPosts) => [...prevPosts, ...posts]);
+      setHasMore(posts.length > 0);
       setLoading(false);
     } catch (error) {
       setError('Failed to fetch posts');

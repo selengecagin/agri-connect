@@ -8,12 +8,14 @@ export default function Header() {
   const userInfo = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const sessionId = localStorage.getItem("userid");
+  const profileLink = `/profile/${sessionId}`;
 
   function deleteToken(): void {
     localStorage.removeItem("token");
     dispatch(setUser({ name: "", email: "", token: "", isLoggedIn: false ,userid:""}));
-    console.log("User logged out:", userInfo); // Log userInfo for debugging
-    navigate("/"); // Move navigate here to ensure it runs after state update
+    console.log("User logged out:", userInfo);
+    navigate("/");
   }
 
 
@@ -75,7 +77,7 @@ export default function Header() {
               <div className="flex mt-20">
                 <ul className="flex flex-col gap-2 items-start">
                   <li className="cursor-pointer">
-                    <Link to="/profile-page">Profile</Link>
+                    <Link to={profileLink}>Profile</Link>
                   </li>
                   <li className="cursor-pointer">
                     <Link to="/profile-settings">Profile Settings</Link>

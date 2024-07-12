@@ -10,6 +10,8 @@ const CreatePostPage: React.FC = () => {
     const navigate = useNavigate();
     const { image, description, status, error } = useSelector((state: RootState) => state.createPost);
     const userId = useSelector((state: RootState) => state.profile.userId);
+    const sessionId = localStorage.getItem("userid");
+
 
     const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
@@ -30,7 +32,7 @@ const CreatePostPage: React.FC = () => {
         dispatch(createPostStart());
 
         const formData = new FormData();
-        formData.append('userId', "668e8f125e4f4a1d0b3ff410");
+        formData.append('userId', {sessionId});
         formData.append('content', description);
         if (image) {
             formData.append('image', image);

@@ -2,7 +2,6 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// Adjust the path to your actual search icon file
 
 const SearchBar: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");

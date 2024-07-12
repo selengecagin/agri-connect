@@ -1,11 +1,9 @@
-// Define the prop types
 interface UserAvatarProps {
   src: string;
   alt: string;
   username: string;
 }
 
-// Define the component with props
 const UserAvatar: React.FC<UserAvatarProps> = ({ src, alt, username }) => {
   return (
     <div className="flex items-center p-4">

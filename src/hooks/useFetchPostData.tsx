@@ -41,7 +41,7 @@ interface PostData {
 const fetchImage = async (imageId: string): Promise<Image> => {
     try {
         const response = await axiosInstance.get(`/api/images/fileSystem/id/${imageId}`);
-        console.log(`Fetched image: ${imageId}`, response.data);  // Debugging
+        console.log(`Fetched image: ${imageId}`, response.data);
         return response.data;
     } catch (err) {
         console.error(`Failed to fetch image with id ${imageId}`, err);
@@ -62,23 +62,23 @@ export const useFetchPostData = (postId: string) => {
             try {
                 const postResponse = await axiosInstance.get(`/api/posts/${postId}`);
                 const post: Post = postResponse.data;
-                console.log('Fetched post:', post);  // Debugging
+                console.log('Fetched post:', post);
 
                 const userResponse = await axiosInstance.get(`/api/users/${post.userId}`);
                 const user: User = userResponse.data;
-                console.log('Fetched user:', user);  // Debugging
+                console.log('Fetched user:', user);
 
                 const commentsResponse = await axiosInstance.get(`/api/comments/post/${postId}`);
                 const comments: Comment[] = commentsResponse.data;
-                console.log('Fetched comments:', comments);  // Debugging
+                console.log('Fetched comments:', comments);
 
                 const images = await Promise.all(post.imageIds.map(fetchImage));
-                console.log('Fetched images:', images);  // Debugging
+                console.log('Fetched images:', images);
 
                 let userProfileImage: Image | undefined;
                 if (user.profilePhotoId) {
                     userProfileImage = await fetchImage(user.profilePhotoId);
-                    console.log('Fetched user profile image:', userProfileImage);  // Debugging
+                    console.log('Fetched user profile image:', userProfileImage);
                 }
 
                 const commentUserImages: { [key: string]: Image } = {};
@@ -87,13 +87,13 @@ export const useFetchPostData = (postId: string) => {
                     const commentUser: User = commentUserResponse.data;
                     if (commentUser.profilePhotoId) {
                         commentUserImages[comment.userId] = await fetchImage(commentUser.profilePhotoId);
-                        console.log(`Fetched comment user image for user ${comment.userId}:`, commentUserImages[comment.userId]);  // Debugging
+                        console.log(`Fetched comment user image for user ${comment.userId}:`, commentUserImages[comment.userId]);
                     }
                 }
 
                 setData({ post, user, comments, images, userProfileImage, commentUserImages });
             } catch (err: any) {
-                console.error('Error fetching data:', err);  // Debugging
+                console.error('Error fetching data:', err);
                 setError(err.message);
             } finally {
                 setLoading(false);

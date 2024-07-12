@@ -1,9 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { User } from '../../hooks/useFetchUserData';
 
 interface Post {
     postId: string;
     userId: string;
+    user: User;
     title: string;
     content: string;
     favoriteCount: number;
@@ -39,7 +41,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post }) => {
         <div className="post bg-white border border-gray-300 rounded-lg shadow-md mb-4 p-4 w-3/5 mx-auto">
             <div className="flex items-center mb-4 cursor-pointer" onClick={handleUserClick}>
                 <img src={`https://via.placeholder.com/40?text=${post.userId}`} alt="User Avatar" className="w-10 h-10 rounded-full mr-4" />
-                <span className="font-bold">User {post.userId}</span>
+                <span className="font-bold"> {post.user.name}</span>
             </div>
             <h2 className="text-lg font-semibold mb-2">{post.title}</h2>
             <p className="text-gray-700 mb-4">{post.content}</p>

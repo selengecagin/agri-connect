@@ -31,8 +31,8 @@ export const sendLoginInfo: any = createAsyncThunk(
       "users/signin",
       payload
     );
-    localStorage.setItem("token", response?.data?.token);
-    localStorage.setItem("userid", response?.data?.userid);
+
+    localStorage.setItem("userid", response?.data);
 
     console.log(response);
     return response?.data;
